@@ -1,0 +1,3 @@
+try{process.loadEnvFile('.env');}catch(e){if(e.code!=='ENOENT')throw e;}
+import {generationPolicy,generationAvailability} from '../lib/generation-policy.mjs';
+const keys=['SUPABASE_URL','SUPABASE_ANON_KEY','SUPABASE_SERVICE_ROLE_KEY','REPLICATE_API_TOKEN','STRIPE_SECRET_KEY','STRIPE_WEBHOOK_SECRET','CRON_SECRET','ADMIN_LOGIN','ADMIN_PASSWORD_HASH','ADMIN_SESSION_SECRET'];console.log(JSON.stringify({configuration:Object.fromEntries(keys.map(k=>[k,Boolean(process.env[k])])),model:generationPolicy.provider,unitCeilingUsd:generationPolicy.maxUnit,generationWithinBudget:generationAvailability()},null,2));

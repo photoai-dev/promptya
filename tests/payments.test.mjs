@@ -1,0 +1,3 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {paymentRecord} from '../lib/payments.mjs';
+const session={id:'cs_test',payment_status:'paid',amount_total:2290,currency:'eur',payment_intent:'pi_test'};
+test('payment records require confirmation and exactly one validated owner link',()=>{assert.throws(()=>paymentRecord({...session,payment_status:'unpaid'},{user_id:'u',order_id:'o'}));assert.throws(()=>paymentRecord(session,{user_id:'u',order_id:'o',bundle_id:'b'}));assert.throws(()=>paymentRecord(session,{order_id:'o'}));const row=paymentRecord(session,{user_id:'u',order_id:'o'});assert.equal(row.amount,2290);assert.equal(row.stripe_session,'cs_test');assert.equal(row.status,'paid');assert.ok(!('card' in row));});

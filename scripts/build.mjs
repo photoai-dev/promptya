@@ -9,6 +9,7 @@ await import('./mascot-pages.mjs');
 await import('./cropper-page.mjs');
 await import('./admin-login-page.mjs');
 await import('./blog-pages.mjs');
+await import('./account-page.mjs');
 const {siteHeader}=await import('../content/layout.mjs');
 const root=new URL('../Promptya_Site/',import.meta.url);
 const origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya-lylx.vercel.app').replace(/\/$/,'');
@@ -32,7 +33,7 @@ async function walk(dir,relative=''){for(const e of await readdir(dir,{withFileT
  html=html.replace(/<a href="\/admin\/">(?:Administration|Admin)<\/a>/g,'').replace(/ ·\s*<p class="muted">/g,'<p class="muted">');
  html=html.replaceAll('En local : commandes de cette session de test. En ligne : accès réservé aux comptes administrateurs Supabase.','Accès réservé aux administrateurs.').replaceAll('Objectif 2 h à valider techniquement','Suivi de vos créations dans votre compte').replaceAll('Objectif 2 h sous réserve de validation technique.','Vos créations, réunies dans votre espace.');
  if(!html.includes('/assets/cart-badge.js'))html=html.replace('</head>','<script defer src="/assets/cart-badge.js"></script></head>');
- if(path==='/'){if(!html.includes('/assets/home-visuals.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/home-visuals.css"><script type="module" src="/assets/home-motion.js"></script></head>');}
+ if(path==='/'){html=html.replace(/<select id="quick-model"[^>]*>[\s\S]*?<\/select>/,'<select id="quick-model" aria-label="Modèle"><option value="flux-3-image">FLUX 3 Image</option></select>');if(!html.includes('/assets/home-visuals.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/home-visuals.css"><script type="module" src="/assets/home-motion.js"></script></head>');}
  if(!path.startsWith('/tarifs/'))html=html.replaceAll('19<sup>€</sup>90','22<sup>€</sup>90').replaceAll('19€90','22€90');
  if(['/studio/','/guides/'].includes(path))html=html.replaceAll('19,90','22,90');
  html=html.replace('100 images · 19,90 € ·','100 images · dès 14,90 € en forfait ·');

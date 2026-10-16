@@ -10,7 +10,7 @@ async function init(){
   if($('studio-form')){
     catalog=await fetch('/assets/catalog.json').then(r=>r.json());
     $('environment').textContent=config.mode==='cloud'?'Vos générations démarrent après confirmation du paiement.':'Le studio est temporairement indisponible. Merci de réessayer plus tard.';
-    if(config.mode==='unconfigured')$('submit-order').disabled=true;
+    if(config.mode==='unconfigured'||!config.generationAvailable){$('submit-order').disabled=true;$('environment').textContent='La génération est temporairement indisponible. Vous pouvez préparer votre sélection.';}
     $('submit-order').textContent='Continuer vers le paiement · 22,90 € →';
     $('model').innerHTML=config.models.map(m=>`<option value="${m.id}">${esc(m.name)}</option>`).join('');
     $('pack').innerHTML+='<optgroup label="106 collections">'+catalog.map(p=>`<option value="${p.slug}">${esc(p.name)} · ${p.promptCount} prompts</option>`).join('')+'</optgroup>';
