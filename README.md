@@ -1,6 +1,6 @@
 # Promptya
 
-Reprise de l’archive fournie, sans remplacement de ses 106 pages packs. Site HTML multipage, JavaScript progressif et API Node pour Vercel. Aucun routeur SPA. **8 487 prompts récupérés sans modification depuis les attributs `data-copy` du HTML source.** Aucun classeur Excel n’était présent dans l’archive ; les noms de collections sont ceux des pages existantes.
+Reprise de l’archive fournie et de ses 106 collections. Site HTML multipage, JavaScript progressif et API Node pour Vercel. Aucun routeur SPA. **8 487 prompts récupérés depuis l’archive et conservés localement dans `private/catalog.json`, exclu de Git et du site publié.** Aucun classeur Excel n’était présent dans l’archive. Les pages publiques ne présentent aucun texte de prompt. Les galeries de six images sont des inspirations, en attendant des résultats validés propres à chaque collection.
 
 ## Prévisualiser
 
@@ -17,7 +17,7 @@ Ouvrir http://localhost:3000. Studio → choisir une collection → accepter les
 ## Brancher GitHub / Vercel / Supabase / Replicate
 
 1. Importer `photoai-dev/promptya` dans Vercel, racine du dépôt, preset Other, commande `npm run build`, sortie `dist`. Node 24. La configuration API est dans `vercel.json`.
-2. Créer le projet Supabase. Exécuter `supabase/migrations/001_promptya.sql` une fois dans le SQL Editor. Cela crée commandes, tâches, événements Stripe, administrateurs et deux buckets privés.
+2. Créer le projet Supabase. Exécuter `supabase/migrations/001_promptya.sql`, puis `002_private_prompts.sql` une fois dans le SQL Editor. Cela crée commandes, tâches, événements Stripe, administrateurs, bibliothèque de prompts non accessible aux clients et deux buckets privés. Depuis le poste de travail qui possède `private/catalog.json`, importer la bibliothèque avec `node --env-file=.env scripts/import-prompts.mjs`. Sans cet import, les commandes de collections sont bloquées avant paiement.
 3. Dans Supabase Auth : activer la connexion e-mail, définir Site URL et Redirect URL sur `https://VOTRE-DOMAINE/compte/`. Configurer le fournisseur SMTP et ses limites avant mise en vente.
 4. Dans les variables **serveur Vercel**, renseigner les noms de `.env.example`. `APP_URL` doit être l’origine HTTPS finale sans slash. Aucune clé secrète dans le HTML, le dépôt ou le chat. Les clés service_role, Stripe et Replicate restent côté serveur.
 5. Créer dans Stripe un webhook vers `https://VOTRE-DOMAINE/api/stripe-webhook`, événements `checkout.session.completed` et `checkout.session.async_payment_succeeded`. Reporter son secret de signature. Utiliser d’abord les clés test.
@@ -27,6 +27,12 @@ Ouvrir http://localhost:3000. Studio → choisir une collection → accepter les
 9. Déployer puis tester : connexion e-mail, références privées, paiement Stripe test, webhook signé répété, une génération par modèle, un lot de 100, archive privée et isolation entre deux comptes.
 
 Les pages locales ne basculent jamais en facturation réelle. En ligne, une configuration manquante bloque l’API ; aucun faux résultat n’est présenté comme une génération.
+
+## Confidentialité de la bibliothèque
+
+Le catalogue navigateur `Promptya_Site/assets/catalog.json` ne contient que les noms, les catégories, les images et les nombres de scénarios. Les instructions réelles ne sont chargées par l’API qu’au moyen de la clé serveur Supabase. Ne pas ajouter `private/` à Git. **La première version du dépôt contenait déjà les textes dans le HTML et le JSON : ils subsistent dans l’historique Git. Le dépôt ayant été public, le rendre privé est nécessaire pour restreindre cet historique ; cela ne révoque pas d’éventuelles copies antérieures.** Une éventuelle réécriture d’historique doit faire l’objet d’une opération distincte, après sauvegarde et coordination.
+
+La prévisualisation locale se recharge automatiquement lorsque les fichiers publics changent. Les six planches Viral Trend fournies sont intégrées dans `assets/viral/`. Les collections de génération de ces personnages sont indiquées comme en préparation ; aucune vente automatique de personnage n’est activée.
 
 ## État et limites avant lancement commercial
 

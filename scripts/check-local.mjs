@@ -11,4 +11,7 @@ await new Promise(r=>setTimeout(r,8500));
 const orders=await fetch(origin+'/api/orders',{headers}).then(r=>r.json());assert.equal(orders.find(o=>o.id===id).status,'completed');
 const denied=await fetch(origin+'/api/download/'+id);assert.equal(denied.status,404);
 const archive=await fetch(origin+'/api/download/'+id,{headers});assert.equal(archive.status,200);const data=Buffer.from(await archive.arrayBuffer());assert.equal(data.readUInt32LE(0),0x04034b50);assert.ok(data.includes(Buffer.from('DEMONSTRATION.txt')));
+assert.equal(data.includes(Buffer.from('prompts.json')),false,'internal prompts excluded from download');
+assert.equal((await fetch(origin+'/private/catalog.json')).status,404);
+const pub=await fetch(origin+'/assets/catalog.json').then(r=>r.json());assert.ok(pub.every(p=>!p.prompts));
 console.log('HTTP: 9 pages/assets OK; invalid quantity rejected; session isolation OK; asynchronous demo and ZIP download OK.');
