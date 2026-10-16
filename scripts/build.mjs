@@ -10,6 +10,7 @@ await import('./cropper-page.mjs');
 await import('./admin-login-page.mjs');
 await import('./blog-pages.mjs');
 await import('./account-page.mjs');
+await import('./fairy-pack-page.mjs');
 const {siteHeader}=await import('../content/layout.mjs');
 const root=new URL('../Promptya_Site/',import.meta.url);
 const origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya-lylx.vercel.app').replace(/\/$/,'');

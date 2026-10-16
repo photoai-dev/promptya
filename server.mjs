@@ -9,7 +9,7 @@ const root=resolve('Promptya_Site');
 const catalog=JSON.parse(await readFile(resolve(root,'assets/catalog.json'),'utf8'));
 const viewers=new Set();let refreshTimer;
 watch(root,{recursive:true},()=>{clearTimeout(refreshTimer);refreshTimer=setTimeout(()=>{for(const viewer of viewers)viewer.write('data: reload\n\n');},400);});
-const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.webp':'image/webp','.png':'image/png','.xml':'application/xml','.txt':'text/plain; charset=utf-8'};
+const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.webp':'image/webp','.png':'image/png','.mp4':'video/mp4','.xml':'application/xml','.txt':'text/plain; charset=utf-8'};
 createServer(async(req,res)=>{try{
   res.setHeader('X-Content-Type-Options','nosniff');
   if(req.url==='/__updates'){res.writeHead(200,{'Content-Type':'text/event-stream','Cache-Control':'no-cache',Connection:'keep-alive'});res.write(': connected\n\n');viewers.add(res);req.on('close',()=>viewers.delete(res));return;}

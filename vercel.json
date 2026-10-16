@@ -3,7 +3,7 @@
   "outputDirectory": "dist",
   "cleanUrls": false,
   "functions": {"api/**/*.js": {"maxDuration": 60, "includeFiles": "{Promptya_Site/assets/catalog.json,.server-ui/admin/**}"}},
-  "rewrites": [{"source":"/admin","destination":"/api/admin-page"},{"source":"/admin/","destination":"/api/admin-page"},{"source":"/admin/:path*","destination":"/api/admin-page?path=:path*"}],
+  "rewrites": [{"source":"/admin","destination":"/api/admin-page"},{"source":"/admin/","destination":"/api/admin-page"},{"source":"/admin/recadrage","destination":"/api/admin-page?path=recadrage"},{"source":"/admin/recadrage/","destination":"/api/admin-page?path=recadrage"},{"source":"/admin/recadrage/index.html","destination":"/api/admin-page?path=recadrage"},{"source":"/admin/:path*","destination":"/api/admin-page?path=:path*"}],
   "crons": [{"path": "/api/worker", "schedule": "*/5 * * * *"}],
   "headers": [
     {"source": "/api/(.*)", "headers": [{"key": "Cache-Control", "value": "no-store"}]},
