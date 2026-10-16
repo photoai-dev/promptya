@@ -1,57 +1,45 @@
 # Promptya
 
-Reprise de l’archive fournie et de ses 106 collections. Site HTML multipage, JavaScript progressif et API Node pour Vercel. Aucun routeur SPA. **8 487 prompts récupérés depuis l’archive et conservés localement dans `private/catalog.json`, exclu de Git et du site publié.** Aucun classeur Excel n’était présent dans l’archive. Les pages publiques ne présentent aucun texte de prompt. Les galeries de six images sont des inspirations, en attendant des résultats validés propres à chaque collection.
+Site HTML multipage : 106 collections, 30 articles de journal, pages de mascottes, studio et API Node. Le contenu éditorial et les liens sont rendus à la compilation dans chaque fichier HTML. Aucun routeur SPA et aucun texte de prompt dans les pages publiques.
 
-## Prévisualiser
+## Développement et validation
 
-Node 22 ou 24, aucune dépendance à installer :
+Node 22 ou 24, aucune dépendance à installer. Exécuter `npm run build`, `npm test`, puis `npm run dev`. L’URL locale est http://127.0.0.1:3000. Le serveur lit `.env` s’il existe et utilise les vraies API. Aucun paiement, résultat ou traitement de commande n’est simulé. Sans configuration fournisseur, les actions concernées répondent indisponible.
 
-```sh
-npm run build
-npm test
-npm run dev
-```
+## Administration privée
 
-Ouvrir http://localhost:3000. Studio → choisir une collection → accepter les droits → tester la commande → Mes commandes → ZIP. Le traitement local simule huit secondes ; **les fichiers sont des exemples identiques du catalogue, aucune image IA n’est générée et aucun paiement n’est effectué**. Les commandes persistent dans `.local/orders.json`, séparées par cookie de navigateur. Le serveur local écoute uniquement sur loopback et ne doit pas être exposé en production.
+Connexion : `/connexion-admin/`. Tableau de bord : `/admin/`. La page de connexion est publique et non indexable ; le tableau de bord et le recadrage sont vérifiés côté serveur à chaque requête. Les fichiers administrateur sont retirés de `dist` et inclus uniquement dans les fonctions serveur depuis `.server-ui/admin`. Aucun lien admin dans la navigation publique.
 
-## Brancher GitHub / Vercel / Supabase / Replicate
+`node scripts/setup-admin.mjs` crée un accès initial uniquement s’il n’existe pas encore dans `.env`. Le mot de passe est affiché une fois, son empreinte scrypt est conservée. Aucun secret ne doit être versionné. Installer dans les variables serveur Vercel `ADMIN_LOGIN`, `ADMIN_PASSWORD_HASH`, `ADMIN_SESSION_SECRET` et une `APP_URL` HTTPS correspondant au domaine. Les cookies sont HttpOnly, SameSite Strict et Secure en HTTPS, avec une durée d’une heure. La connexion applique une limitation de tentatives par instance ; configurer également une limitation distribuée au niveau de l’hébergement pour une exposition publique.
 
-1. Importer `photoai-dev/promptya` dans Vercel, racine du dépôt, preset Other, commande `npm run build`, sortie `dist`. Node 24. La configuration API est dans `vercel.json`.
-2. Créer le projet Supabase. Exécuter `supabase/migrations/001_promptya.sql`, puis `002_private_prompts.sql` une fois dans le SQL Editor. Cela crée commandes, tâches, événements Stripe, administrateurs, bibliothèque de prompts non accessible aux clients et deux buckets privés. Depuis le poste de travail qui possède `private/catalog.json`, importer la bibliothèque avec `node --env-file=.env scripts/import-prompts.mjs`. Sans cet import, les commandes de collections sont bloquées avant paiement.
-3. Dans Supabase Auth : activer la connexion e-mail, définir Site URL et Redirect URL sur `https://VOTRE-DOMAINE/compte/`. Configurer le fournisseur SMTP et ses limites avant mise en vente.
-4. Dans les variables **serveur Vercel**, renseigner les noms de `.env.example`. `APP_URL` doit être l’origine HTTPS finale sans slash. Aucune clé secrète dans le HTML, le dépôt ou le chat. Les clés service_role, Stripe et Replicate restent côté serveur.
-5. Créer dans Stripe un webhook vers `https://VOTRE-DOMAINE/api/stripe-webhook`, événements `checkout.session.completed` et `checkout.session.async_payment_succeeded`. Reporter son secret de signature. Utiliser d’abord les clés test.
-6. Renseigner `REPLICATE_API_TOKEN`. Les trois adaptateurs sont FLUX Schnell, FLUX Kontext Pro (une référence) et FLUX Dev LoRA (poids compatibles Hugging Face). Tester chaque schéma fournisseur avec une image avant des lots payants.
-7. Le cron Vercel `/api/worker` nécessite `CRON_SECRET`. Le calendrier de cinq minutes demande un plan Vercel qui l’accepte. Le worker prend trois tâches persistantes avec bail SQL, soumet des prédictions asynchrones puis les relève aux passages suivants. **Cette cadence est conservatrice et ne valide pas une livraison de 100 images sous deux heures.** Ajuster cadence, concurrence, budget et quotas après mesure. Aucun long traitement en mémoire ne survit entre invocations.
-8. Pour accorder l’administration : `insert into public.admins(user_id) values ('UUID_DU_COMPTE');` dans le SQL Editor. Les API vérifient le compte avant de lire les commandes.
-9. Déployer puis tester : connexion e-mail, références privées, paiement Stripe test, webhook signé répété, une génération par modèle, un lot de 100, archive privée et isolation entre deux comptes.
+Une connexion Supabase avec un rôle dans `public.admins` reste compatible. Pour les créations d’aperçus attribuées à l’accès par mot de passe, `ADMIN_USER_ID` doit identifier un compte administrateur Supabase existant. Les actions serveur conservent leurs vérifications d’accès.
 
-Les pages locales ne basculent jamais en facturation réelle. En ligne, une configuration manquante bloque l’API ; aucun faux résultat n’est présenté comme une génération.
+## Installation production
 
-## Confidentialité de la bibliothèque
+1. Importer le dépôt dans Vercel, preset Other, build `npm run build`, sortie `dist`, Node 24. Les chemins admin sont réécrits vers la fonction privée.
+2. Exécuter les migrations Supabase 001 à 005 dans l’ordre. Elles ajoutent les commandes, tâches, bibliothèque privée, aperçus, forfaits et inventaire exclusif des mascottes.
+3. Importer les instructions depuis le poste possédant `private/catalog.json` avec `node --env-file=.env scripts/import-prompts.mjs`. Les instructions restent privées ; ne pas les placer dans les fichiers publics.
+4. Compléter les variables serveur de `.env.example` : Supabase, Replicate, Stripe et cron. Configurer les redirections Auth e-mail et SMTP sur le domaine final.
+5. Installer le webhook Stripe `/api/stripe-webhook` avec `checkout.session.completed`, `checkout.session.async_payment_succeeded` et `checkout.session.expired`. Vérifier les clés test avant les clés de production.
+6. Configurer `/api/worker` et `CRON_SECRET`. Mesurer la cadence réelle, les quotas, le coût et le délai avant de promettre un temps de livraison. Les appels fournisseurs sont facturés au compte connecté.
+7. Tester la connexion, l’isolation de comptes, les références privées, chaque modèle, les lots, le webhook signé répété, le téléchargement et les erreurs fournisseur. Les connecteurs sont implémentés mais leur fonctionnement avec les comptes réels n’est pas validé tant que ces essais ne sont pas faits.
 
-Le catalogue navigateur `Promptya_Site/assets/catalog.json` ne contient que les noms, les catégories, les images et les nombres de scénarios. Les instructions réelles ne sont chargées par l’API qu’au moyen de la clé serveur Supabase. Ne pas ajouter `private/` à Git. **La première version du dépôt contenait déjà les textes dans le HTML et le JSON : ils subsistent dans l’historique Git. Le dépôt ayant été public, le rendre privé est nécessaire pour restreindre cet historique ; cela ne révoque pas d’éventuelles copies antérieures.** Une éventuelle réécriture d’historique doit faire l’objet d’une opération distincte, après sauvegarde et coordination.
+## Offres
 
-La prévisualisation locale se recharge automatiquement lorsque les fichiers publics changent. Les six planches Viral Trend fournies sont intégrées dans `assets/viral/`. Les collections de génération de ces personnages sont indiquées comme en préparation ; aucune vente automatique de personnage n’est activée.
+100 photos par pack. Un pack : 22,90 €. Deux : 39,80 € au total. Trois : 50,70 €. Quatre : 59,60 €. Le serveur calcule le montant et ignore les prix envoyés par le navigateur.
 
-## État et limites avant lancement commercial
+Mascotte : 69,90 € pour 30 photos. Réservation atomique SQL, un acquéreur, retrait du catalogue après paiement confirmé. L’inventaire et les commandes sont conservés pour le suivi. `MASCOT_SALES_ENABLED`, conditions de cession et services de paiement/génération doivent être configurés avant activation. Une interruption entre réservation et création Stripe nécessite une réconciliation administrative. Tester les acquisitions concurrentes dans la base réelle.
 
-- Conservé : design blanc, accueil, catalogue, 106 fiches avec prompts, FAQ, Adult Prompt et Viral Trend.
-- Ajouté : studio, import avec aperçu, options selon modèle, commandes locales persistantes, ZIP réel d’exemples, compte e-mail, pages catégories rendues en HTML, sitemap, llms.txt, adaptateurs Vercel/Supabase/Stripe/Replicate et migration avec RLS.
-- Connecteurs cloud écrits mais **non testés avec les comptes réels**. Prévoir essais d’intégration, tests de charge, traitement des remboursements, purge des références, observabilité et alertes.
-- Administration initiale : état des intégrations et liste des commandes ; édition du catalogue, remboursement et relance manuelle restent à développer.
-- ZIP cloud construit à la demande dans une fonction : mesurer mémoire et délai pour 100 sorties haute résolution ; migrer vers un worker dédié/ZIP en flux si les limites Vercel sont dépassées.
-- Une interruption entre création Replicate et enregistrement de l’identifiant est signalée comme échec pour éviter de relancer une facturation à l’aveugle. Réconciliation manuelle à prévoir.
-- Les rubriques Adult Prompt et Viral Trend sont conservées ; elles ne constituent pas un nouveau catalogue adulte importé. Aucun filtre fournisseur n’est désactivé. Contrôle éditorial et règles commerciales restent à finaliser.
-- Les miniatures existantes sont réutilisées ; elles ne sont pas des exemples générés propres à chacune des 106 collections. Remplacement progressif à prévoir.
-- Les URL canoniques utilisent `https://promptya.com` hérité de l’archive : remplacer si le domaine final diffère.
-- L’objectif de deux heures n’est pas garanti. La rentabilité à 19,90 € doit être vérifiée par modèle avec frais, reprises et taxes.
+Covers : page dédiée au format 1:1. L’outil actuel compose et exporte une maquette ; il n’appelle pas de génération IA payante. Tarif distinct à définir.
 
-## Sources techniques
+## Images et administration
 
-- https://vercel.com/docs/functions/runtimes/node-js
-- https://supabase.com/docs/guides/auth
-- https://replicate.com/black-forest-labs/flux-schnell/api
-- https://replicate.com/black-forest-labs/flux-kontext-pro/api/schema
-- https://replicate.com/black-forest-labs/flux-dev-lora/api/schema
-- https://docs.stripe.com/events/manage-webhook-endpoints
+Les images fournies sont organisées dans les univers correspondants. Les fiches mascottes présentent les vues de planches via des cadres indépendants. L’atelier `/admin/recadrage/` exporte de véritables fichiers PNG recadrés depuis le navigateur, sans modifier l’original. L’export ne remplace pas automatiquement un fichier publié.
+
+L’admin peut préparer quatre exemples réels par pack. Les résultats restent privés jusqu’à validation et publication des quatre vues. Les aperçus non validés ou incomplets ne sont pas publiés.
+
+## Référencement
+
+Le journal se trouve dans `/blog/`. Trente articles distincts, sommaires HTML, liens croisés et liens vers les offres. Métadonnées, canoniques, BlogPosting, fil d’Ariane et sitemap sont générés à la compilation. Le plan de 50 requêtes est dans `docs/strategie-seo.md` et `docs/50-mots-cles.csv`. Les priorités reflètent l’adéquation aux offres ; aucun volume de recherche ni classement n’est inventé ou garanti.
+
+Après publication, vérifier le domaine dans Search Console, soumettre `/sitemap.xml`, inspecter les URL et mesurer les requêtes et conversions. Ne pas publier le dépôt privé d’instructions : les secrets et `private/` sont exclus de Git. Les publications antérieures du dépôt doivent être prises en compte séparément.

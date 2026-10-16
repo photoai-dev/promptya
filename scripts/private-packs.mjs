@@ -1,3 +1,4 @@
+throw Error('Utilisez npm run build : les fiches sont maintenant générées depuis content/collections.mjs, sans accès au catalogue privé.');
 import {readFile,writeFile} from 'node:fs/promises';
 const root='Promptya_Site';const catalog=JSON.parse(await readFile('private/catalog.json','utf8'));
 const base=await readFile(root+'/index.html','utf8');const header=base.match(/<header[\s\S]*?<\/header>/)[0],footer=base.match(/<footer[\s\S]*?<\/footer>/)[0];

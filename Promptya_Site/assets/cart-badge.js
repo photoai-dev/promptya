@@ -1,0 +1,1 @@
+(()=>{const refresh=()=>{try{const items=JSON.parse(localStorage.getItem('promptya_cart_v1')||'[]');document.querySelectorAll('[data-cart-count]').forEach(el=>el.textContent=items.length);}catch{}};refresh();addEventListener('promptya-cart',refresh);addEventListener('storage',refresh);})();

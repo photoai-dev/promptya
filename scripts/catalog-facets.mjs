@@ -1,0 +1,14 @@
+import {writeFile} from '../lib/fs-safe.mjs';
+import {readFile} from 'node:fs/promises';
+import {editorial} from '../content/collections.mjs';
+import {taxonomy,countryFor,countryLabels} from '../content/taxonomy.mjs';
+const path='Promptya_Site/packs/index.html',catalog=JSON.parse(await readFile('Promptya_Site/assets/catalog.json','utf8'));let html=await readFile(path,'utf8');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const countries=[...new Set(catalog.map(countryFor).filter(Boolean))].map(slug=>({slug,name:countryLabels[slug]||editorial[slug]?.name||slug})).sort((a,b)=>a.name.localeCompare(b.name,'fr'));
+const city=catalog.filter(p=>taxonomy(p).type==='ville').sort((a,b)=>editorial[a.slug].name.localeCompare(editorial[b.slug].name,'fr'));
+const popular=['paris','mykonos','santorin','bali','new-york','tokyo','dubai','rome','les-maldives','londres','portofino','miami'];
+const choice=(value,name,facet)=>`<label class="facet-choice"><input type="checkbox" data-facet="${facet}" value="${value}"><span>${esc(name)}</span></label>`;
+const panel=`<div class="facet-toggle-row"><button class="btn filter-toggle" id="toggle-facets" aria-expanded="false" aria-controls="facet-panel">☷ Filtrer les packs <span id="facet-total">0</span></button><div id="selected-facets" class="selected-facets"></div></div><section class="facet-panel" id="facet-panel" hidden><div class="facet-group"><h3>Pays</h3><p>Retrouvez les pays et leurs destinations.</p><div class="facet-list">${countries.map(c=>choice(c.slug,c.name,'country')).join('')}</div></div><div class="facet-group"><h3>Villes</h3><p>Choisissez directement votre décor urbain.</p><div class="facet-list">${city.map(c=>choice(c.slug,editorial[c.slug].name,'city')).join('')}</div></div><div class="facet-group"><h3>Destinations populaires</h3><p>Une sélection pour commencer à explorer.</p><div class="facet-list">${popular.map(slug=>choice(slug,editorial[slug].name,'popular')).join('')}</div></div><div class="facet-group"><h3>Univers créatifs</h3><p>Un style ou une ambiance plutôt qu’un lieu.</p><div class="facet-list">${[['cinema','Cinéma & animation'],['creation','Miniatures, 3D & concepts'],['automobile','Automobile & supercars'],['evenement','Festivals & fêtes'],['sport','Sport & mouvement'],['nature','Nature & îles'],['attraction','Lieux & attractions']].map(([v,n])=>choice(v,n,'universe')).join('')}</div></div><div class="facet-footer"><span>Les listes de pays incluent leurs villes associées.</span><button type="button" class="btn dark" id="apply-facets">Afficher les résultats ↓</button></div></section>`;
+html=html.replace('<div class="catalog-selects">',panel+'<div class="catalog-selects">');
+for(const p of catalog)html=html.replace(`data-slug="${p.slug}"`,`data-slug="${p.slug}" data-country="${countryFor(p)}"`);
+await writeFile(path,html);

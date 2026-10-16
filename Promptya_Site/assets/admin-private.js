@@ -1,0 +1,1 @@
+const logout=document.createElement('button');logout.className='btn';logout.textContent='Déconnexion';logout.style.marginLeft='12px';document.querySelector('main>div.pageintro')?.append(logout);logout.onclick=async()=>{await fetch('/api/admin-session',{method:'DELETE'});sessionStorage.removeItem('promptya_access');location.replace('/connexion-admin/');};

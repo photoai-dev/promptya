@@ -1,7 +1,118 @@
 # Promptya
-Plateforme de collections de prompts et de packs d’images IA.
-- Catalogue : /packs/
-- Catégories : /categories/
-- FAQ : /guides/
-- Tarifs : /tarifs/
-Un pack : jusqu’à 100 images, 19,90 EUR. Objectif de livraison de deux heures, non garanti avant validation technique. Les visuels du catalogue sont des exemples.
+Packs d’images IA personnalisées. 106 collections. 100 photos par pack : 22,90 EUR ; 2 packs à 19,90 EUR chacun ; 3 à 16,90 EUR ; 4 à 14,90 EUR. Mascottes exclusives : 69,90 EUR pour 30 photos. Covers : tarif distinct à définir.
+Les prompts sont internes, seuls les résultats sont livrés en ZIP.
+L’objectif de deux heures n’est pas une garantie validée.
+
+## Pages
+- [Catalogue](https://promptya-lylx.vercel.app/packs/)
+- [Fonctionnement](https://promptya-lylx.vercel.app/comment-ca-marche/)
+- [Tarifs](https://promptya-lylx.vercel.app/tarifs/)
+- [FAQ](https://promptya-lylx.vercel.app/#faq)
+
+## Collections
+- https://promptya-lylx.vercel.app/packs/allemagne/
+- https://promptya-lylx.vercel.app/packs/animaux-reel/
+- https://promptya-lylx.vercel.app/packs/argentine/
+- https://promptya-lylx.vercel.app/packs/athenes/
+- https://promptya-lylx.vercel.app/packs/australie/
+- https://promptya-lylx.vercel.app/packs/autriche/
+- https://promptya-lylx.vercel.app/packs/bali/
+- https://promptya-lylx.vercel.app/packs/barcelone/
+- https://promptya-lylx.vercel.app/packs/beiijing/
+- https://promptya-lylx.vercel.app/packs/berlin/
+- https://promptya-lylx.vercel.app/packs/bonbon/
+- https://promptya-lylx.vercel.app/packs/bresil/
+- https://promptya-lylx.vercel.app/packs/bucarest/
+- https://promptya-lylx.vercel.app/packs/budapest/
+- https://promptya-lylx.vercel.app/packs/canada/
+- https://promptya-lylx.vercel.app/packs/cancun/
+- https://promptya-lylx.vercel.app/packs/cars/
+- https://promptya-lylx.vercel.app/packs/chine/
+- https://promptya-lylx.vercel.app/packs/cinema-jacquette/
+- https://promptya-lylx.vercel.app/packs/coachella/
+- https://promptya-lylx.vercel.app/packs/colombie/
+- https://promptya-lylx.vercel.app/packs/coree-du-sud/
+- https://promptya-lylx.vercel.app/packs/corse/
+- https://promptya-lylx.vercel.app/packs/coupe-du-monde/
+- https://promptya-lylx.vercel.app/packs/courchevel/
+- https://promptya-lylx.vercel.app/packs/disney/
+- https://promptya-lylx.vercel.app/packs/disney-3d/
+- https://promptya-lylx.vercel.app/packs/dubai/
+- https://promptya-lylx.vercel.app/packs/emirats/
+- https://promptya-lylx.vercel.app/packs/epic-sci-fi/
+- https://promptya-lylx.vercel.app/packs/espagne/
+- https://promptya-lylx.vercel.app/packs/film-par-scene/
+- https://promptya-lylx.vercel.app/packs/foot-l1/
+- https://promptya-lylx.vercel.app/packs/france/
+- https://promptya-lylx.vercel.app/packs/geneve/
+- https://promptya-lylx.vercel.app/packs/glace/
+- https://promptya-lylx.vercel.app/packs/happynew-year/
+- https://promptya-lylx.vercel.app/packs/hollywood-fx-effect/
+- https://promptya-lylx.vercel.app/packs/hongrie/
+- https://promptya-lylx.vercel.app/packs/ibiza/
+- https://promptya-lylx.vercel.app/packs/indonesie/
+- https://promptya-lylx.vercel.app/packs/island/
+- https://promptya-lylx.vercel.app/packs/italie/
+- https://promptya-lylx.vercel.app/packs/japon/
+- https://promptya-lylx.vercel.app/packs/jouet-geant/
+- https://promptya-lylx.vercel.app/packs/kiev/
+- https://promptya-lylx.vercel.app/packs/las-vegas/
+- https://promptya-lylx.vercel.app/packs/le-caire/
+- https://promptya-lylx.vercel.app/packs/le-vatican/
+- https://promptya-lylx.vercel.app/packs/les-maldives/
+- https://promptya-lylx.vercel.app/packs/lieu-iconique/
+- https://promptya-lylx.vercel.app/packs/lisbonne/
+- https://promptya-lylx.vercel.app/packs/londres/
+- https://promptya-lylx.vercel.app/packs/los-angeles/
+- https://promptya-lylx.vercel.app/packs/maroc/
+- https://promptya-lylx.vercel.app/packs/marrakech/
+- https://promptya-lylx.vercel.app/packs/mexique/
+- https://promptya-lylx.vercel.app/packs/miami/
+- https://promptya-lylx.vercel.app/packs/milan/
+- https://promptya-lylx.vercel.app/packs/monaco/
+- https://promptya-lylx.vercel.app/packs/moscou/
+- https://promptya-lylx.vercel.app/packs/mykonos/
+- https://promptya-lylx.vercel.app/packs/new-york/
+- https://promptya-lylx.vercel.app/packs/noel/
+- https://promptya-lylx.vercel.app/packs/noel-de-strasbourg/
+- https://promptya-lylx.vercel.app/packs/noir-blanc-portrait/
+- https://promptya-lylx.vercel.app/packs/oslo/
+- https://promptya-lylx.vercel.app/packs/paris/
+- https://promptya-lylx.vercel.app/packs/patisserie/
+- https://promptya-lylx.vercel.app/packs/philippines/
+- https://promptya-lylx.vercel.app/packs/plat-3d/
+- https://promptya-lylx.vercel.app/packs/pole-nord/
+- https://promptya-lylx.vercel.app/packs/pologne/
+- https://promptya-lylx.vercel.app/packs/portofino/
+- https://promptya-lylx.vercel.app/packs/portugal/
+- https://promptya-lylx.vercel.app/packs/pragues/
+- https://promptya-lylx.vercel.app/packs/quebec/
+- https://promptya-lylx.vercel.app/packs/republique-tcheque/
+- https://promptya-lylx.vercel.app/packs/rio-de-juanero/
+- https://promptya-lylx.vercel.app/packs/robe-drapeau/
+- https://promptya-lylx.vercel.app/packs/robe-santorini/
+- https://promptya-lylx.vercel.app/packs/rome/
+- https://promptya-lylx.vercel.app/packs/roumanie/
+- https://promptya-lylx.vercel.app/packs/rovaniemi/
+- https://promptya-lylx.vercel.app/packs/russie/
+- https://promptya-lylx.vercel.app/packs/saint-tropez/
+- https://promptya-lylx.vercel.app/packs/santorin/
+- https://promptya-lylx.vercel.app/packs/scene-action-film/
+- https://promptya-lylx.vercel.app/packs/seoul/
+- https://promptya-lylx.vercel.app/packs/serie-tele/
+- https://promptya-lylx.vercel.app/packs/shanghai/
+- https://promptya-lylx.vercel.app/packs/singapore/
+- https://promptya-lylx.vercel.app/packs/sport-action/
+- https://promptya-lylx.vercel.app/packs/suisse/
+- https://promptya-lylx.vercel.app/packs/supercar/
+- https://promptya-lylx.vercel.app/packs/sydney/
+- https://promptya-lylx.vercel.app/packs/test-cars/
+- https://promptya-lylx.vercel.app/packs/thailande/
+- https://promptya-lylx.vercel.app/packs/tokyo/
+- https://promptya-lylx.vercel.app/packs/tomorowland/
+- https://promptya-lylx.vercel.app/packs/uk/
+- https://promptya-lylx.vercel.app/packs/ukraine/
+- https://promptya-lylx.vercel.app/packs/usa/
+- https://promptya-lylx.vercel.app/packs/venezuela/
+- https://promptya-lylx.vercel.app/packs/venise/
+- https://promptya-lylx.vercel.app/packs/vienne/
