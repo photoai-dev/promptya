@@ -1,0 +1,7 @@
+# Promptya
+Plateforme de collections de prompts et de packs d’images IA.
+- Catalogue : /packs/
+- Catégories : /categories/
+- FAQ : /guides/
+- Tarifs : /tarifs/
+Un pack : jusqu’à 100 images, 19,90 EUR. Objectif de livraison de deux heures, non garanti avant validation technique. Les visuels du catalogue sont des exemples.

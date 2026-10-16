@@ -1,0 +1,12 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {createHmac} from 'node:crypto';
+import {readFile} from 'node:fs/promises';
+import {validateOrder,predictionInput,zip} from '../lib/core.mjs';
+import {verifyStripe} from '../lib/cloud.mjs';
+const base={count:100,model:'flux-schnell',ratio:'1:1',prompt:'Paris au soleil',consent:true};
+test('quantity boundaries and server-controlled price',()=>{assert.equal(validateOrder({...base,amount:1},[]).amount,1990);for(const count of [0,101,1.1,'100',null])assert.throws(()=>validateOrder({...base,count},[]));assert.equal(validateOrder({...base,count:1},[]).count,1);});
+test('model capabilities enforced on server',()=>{assert.throws(()=>validateOrder({...base,reference:'photo'},[]));assert.throws(()=>validateOrder({...base,model:'flux-kontext-pro'},[]));assert.throws(()=>validateOrder({...base,lora:'https://evil.test/a'},[]));assert.throws(()=>validateOrder({...base,pack:'missing'},[]));assert.throws(()=>validateOrder({...base,consent:false},[]));const input=predictionInput({...base,model:'flux-kontext-pro',reference:'signed-url'},'scene');assert.equal(input.input_image,'signed-url');assert.equal(input.num_outputs,undefined);});
+test('Stripe checks raw body, age and all v1 signatures',()=>{const raw=Buffer.from('{"paid":true}'),t=Math.floor(Date.now()/1000),secret='test';const sig=createHmac('sha256',secret).update(t+'.').update(raw).digest('hex');assert.equal(verifyStripe(raw,`t=${t},v1=bad,v1=${sig}`,secret),true);assert.equal(verifyStripe(Buffer.from('{}'),`t=${t},v1=${sig}`,secret),false);assert.equal(verifyStripe(raw,`t=${t},v1=${sig}`,secret,Date.now()+600000),false);});
+test('ZIP writes real central directory and files',()=>{const b=zip([{name:'test.txt',data:'hello'}]);assert.equal(b.readUInt32LE(0),0x04034b50);assert.equal(b.readUInt32LE(b.length-22),0x06054b50);assert.equal(b.readUInt16LE(b.length-14),1);assert.ok(b.includes(Buffer.from('hello')));});
+test('archive inventory is complete and non-empty',async()=>{const c=JSON.parse(await readFile('Promptya_Site/assets/catalog.json','utf8'));assert.equal(c.length,106);assert.equal(c.reduce((n,p)=>n+p.prompts.length,0),8487);assert.ok(c.every(p=>p.prompts.length>0));assert.equal(new Set(c.map(p=>p.slug)).size,106);});
