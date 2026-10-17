@@ -5,7 +5,7 @@ import {mascots,photoMarkup} from '../content/mascots.mjs';
 import {editorialKey,editorialRecord} from '../lib/editorial.mjs';
 import {loadEditorial} from './editorial-store.mjs';
 import {reviewedAdditionalCopy} from '../content/locales/pl-ja-copy.mjs';
-const root='Promptya_Site',origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya.app').replace(/\/$/,'');
+const root='Promptya_Site',origin=(process.env.SITE_URL||process.env.APP_URL||'https://www.promptya.app').replace(/\/$/,'');
 const config=JSON.parse(await readFile('content/locales/config.json','utf8')),locales=config.enabled.filter(l=>l!=='fr');
 const runtimeLabels=JSON.parse(await readFile('content/locales/runtime-labels.json','utf8'));
 const catalog=JSON.parse(await readFile(root+'/assets/catalog.json','utf8')),pages=[];

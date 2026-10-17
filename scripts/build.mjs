@@ -22,7 +22,7 @@ const {videoBand,listeningVideoBand}=await import('../content/video-band.mjs');
 const {guideCallout}=await import('../content/creation-steps.mjs');
 const {relatedPackCards}=await import('../content/related-packs.mjs');
 const root=new URL('../Promptya_Site/',import.meta.url);
-const origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya.app').replace(/\/$/,'');
+const origin=(process.env.SITE_URL||process.env.APP_URL||'https://www.promptya.app').replace(/\/$/,'');
 export const catalog=JSON.parse(await readFile(new URL('assets/catalog.json',root),'utf8'));
 catalog.sort((a,b)=>a.name.localeCompare(b.name,'fr'));
 if(catalog.some(p=>'prompts' in p))throw Error('Le catalogue public ne doit contenir aucun texte de prompt.');
@@ -36,7 +36,7 @@ for(const category of ['voyage','mode','sport','creation','gourmandise']){
 }
 const paths=[];
 async function walk(dir,relative=''){for(const e of await readdir(dir,{withFileTypes:true})){const rel=relative+e.name;if(e.isDirectory()&&!['en','es','it','pt','de','nl','br','cz','pl','ja'].includes(e.name))await walk(new URL(e.name+'/',dir),rel+'/');else if(e.name==='index.html'){
- const path='/'+rel.replace('index.html','');let html=await readFile(new URL(e.name,dir),'utf8');html=html.replaceAll('https://promptya.com',origin).replaceAll('https://promptya-lylx.vercel.app',origin);
+ const path='/'+rel.replace('index.html','');let html=await readFile(new URL(e.name,dir),'utf8');html=html.replaceAll('https://promptya.com',origin).replaceAll('https://promptya-lylx.vercel.app',origin).replaceAll('https://promptya.app',origin);
  if(/^\/packs\/[^/]+\/$/.test(path)){const slug=path.split('/')[2],block=relatedPackCards(slug,catalog);if(html.includes('<section class="related-packs'))html=html.replace(/<section class="related-packs[^"]*"[\s\S]*?<\/section>/,block);else html=html.replace('</main>','<div class="wrap">'+block+'</div></main>');if(!html.includes('/assets/related-packs.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/related-packs.css"></head>');}
  if(path==='/packs/')html=html.replace('class="wrap shop-main"','class="wrap shop-main catalogue-page"');
  html=html.replace(/<header[\s\S]*?<\/header>/,siteHeader);

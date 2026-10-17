@@ -1,6 +1,6 @@
 import {readFile,mkdir} from 'node:fs/promises';import {writeFile} from '../lib/fs-safe.mjs';
 import {articles} from '../content/blog.mjs';import {keywords} from '../content/keywords.mjs';import {siteHeader} from '../content/layout.mjs';
-const root='Promptya_Site',origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya.app').replace(/\/$/,'');
+const root='Promptya_Site',origin=(process.env.SITE_URL||process.env.APP_URL||'https://www.promptya.app').replace(/\/$/,'');
 const catalog=JSON.parse(await readFile(root+'/assets/catalog.json','utf8'));
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const json=data=>JSON.stringify(data).replace(/</g,'\\u003c');

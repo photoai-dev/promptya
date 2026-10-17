@@ -1,8 +1,8 @@
 // Keep French authoring sources stable; publish English at / and French at /fr/.
-import {readFile,mkdir,cp,unlink,readdir} from 'node:fs/promises';
+import {readFile,mkdir,cp,readdir} from 'node:fs/promises';
 import {writeFile} from '../lib/fs-safe.mjs';
 import {parse,serialize} from 'parse5';
-const origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya.app').replace(/\/$/,'');
+const origin=(process.env.SITE_URL||process.env.APP_URL||'https://www.promptya.app').replace(/\/$/,'');
 const config=JSON.parse(await readFile('content/locales/config.json','utf8'));
 const stored={fr:{}};
 for(const locale of config.enabled.filter(l=>l!=='fr'))stored[locale]=JSON.parse(await readFile(`Promptya_Site/${locale}/routes.json`,'utf8'));
@@ -70,9 +70,14 @@ for(const locale of config.enabled){
   await writeFile(to+'index.html',await rewriteHTML(await readFile(from,'utf8'),locale,source));
  }
 }
-// Remove French aliases from / when they are not also English destination pages.
+// Retired URLs also get instant HTML redirects, so static previews remain usable
+// when an environment does not apply the Vercel HTTP redirect configuration.
+const redirectPage=(target,lang)=>`<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=${origin+target}"><link rel="canonical" href="${origin+target}"><title>Promptya</title><script>location.replace(${JSON.stringify(target)}+location.search+location.hash)</script></head><body><a href="${target}">Promptya →</a></body></html>`;
 const englishDestinations=new Set(Object.values(publicMaps.en));
-for(const source of sources)if(!englishDestinations.has(source))await unlink('dist'+source+'index.html').catch(e=>{if(e.code!=='ENOENT')throw e;});
+for(const source of sources){
+ if(!englishDestinations.has(source)){await mkdir('dist'+source,{recursive:true});await writeFile('dist'+source+'index.html',redirectPage(publicMaps.fr[source],'fr'));}
+ await writeFile('dist'+stored.en[source]+'index.html',redirectPage(publicMaps.en[source],'en'));
+}
 await cp('Promptya_Site/en/assets','dist/assets',{recursive:true});
 for(const item of await readdir('Promptya_Site/en/assets',{withFileTypes:true})){
  if(!item.isFile()||!(/\.(js|json)$/.test(item.name)))continue;

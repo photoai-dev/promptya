@@ -1,6 +1,6 @@
 # Internationalisation et contenus éditoriaux
 
-L’anglais est publié à la racine de `https://promptya.app/`, le français sous `/fr/`. Autres versions actives : `/es/`, `/it/`, `/pt/`, `/de/`, `/nl/`, `/br/`, `/cz/`, `/pl/`, `/ja/`. Les anciennes URL `/en/…` sont redirigées en 301 vers la racine. La variante brésilienne utilise `pt-BR`, la version portugaise `pt-PT` et le tchèque `cs-CZ` dans les balises de langue et de référencement. Les dossiers `/br/` et `/cz/` correspondent aux noms demandés.
+L’anglais est publié à la racine de `https://www.promptya.app/`, le français sous `/fr/`. Autres versions actives : `/es/`, `/it/`, `/pt/`, `/de/`, `/nl/`, `/br/`, `/cz/`, `/pl/`, `/ja/`. Les anciennes URL `/en/…` sont redirigées en 301 vers la racine. La variante brésilienne utilise `pt-BR`, la version portugaise `pt-PT` et le tchèque `cs-CZ` dans les balises de langue et de référencement. Les dossiers `/br/` et `/cz/` correspondent aux noms demandés.
 
 Les textes publics des 176 pages de chacune des 11 versions sont enregistrés dans `public.editorial_pages` : textes éditoriaux, titres SEO, descriptions. Les blocs sont identifiés par le hash de leur texte source. Les prompts de génération restent dans leur table privée, sans traduction ni export.
 
@@ -22,7 +22,7 @@ La vidéo Viral Trend est muette, optimisée, en boucle, chargée à l’apparit
 
 `content/locales/regional-copy.mjs` contient les noms de collections, modèles de titres et métadonnées des packs et messages produit relus par langue. `scripts/review-regional-copy.mjs` applique ces corrections aux fichiers de secours et au snapshot. La synchronisation SQL vérifie le texte précédent pour préserver les modifications de l’administration. `regional-review.json` décrit la portée réelle : la relecture intégrale des guides et articles reste à terminer. Aucun indicateur de couverture ne vaut validation linguistique complète.
 
-Le domaine public de référence est `https://promptya.app`. La page `/mentions-legales/` et ses huit traductions sont générées depuis `scripts/legal-page.mjs` ; l’identité juridique de l’éditeur reste à compléter à sa demande.
+Le domaine public de référence est `https://www.promptya.app`. La page `/mentions-legales/` et ses huit traductions sont générées depuis `scripts/legal-page.mjs` ; l’identité juridique de l’éditeur reste à compléter à sa demande.
 
 ## Aperçus de partage
 

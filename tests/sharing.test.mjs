@@ -10,7 +10,7 @@ test('each public language page has one matching JPEG sharing image and browser 
   const map=locale==='fr'?Object.fromEntries(Object.keys(routes).map(p=>[p,p])):JSON.parse(await readFile(root+'/'+locale+'/routes.json','utf8'));
   for(const [source,path] of Object.entries(map)){
    const html=await readFile(root+path+'index.html','utf8');
-   const image='https://promptya.app'+socialAsset(source);
+   const image='https://www.promptya.app'+socialAsset(source);
    assert.equal([...html.matchAll(/property="og:image"/g)].length,1,path);
    assert.ok(html.includes(`property="og:image" content="${image}"`),path);
    assert.ok(html.includes(`name="twitter:image" content="${image}"`),path);
