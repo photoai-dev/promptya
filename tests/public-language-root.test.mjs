@@ -36,6 +36,12 @@ test('public client resources keep French and English orders in their language',
  assert.equal(english.routes['/compte/'],'/account/');
  assert.equal(english.routes['/panier/'],'/cart/');
 });
+test('French stylesheets and assets do not depend on the current page directory',async()=>{
+ const html=await readFile('dist/fr/index.html','utf8');
+ assert.ok(html.includes('rel="stylesheet" href="/assets/style.css"'));
+ assert.ok(!/(?:href|src|poster)="assets\//.test(html));
+ const css=await readFile('dist/assets/style.css','utf8');assert.ok(css.length>1000);
+});
 test('legacy English and French pages have static redirect fallbacks preserving query and fragment',async()=>{
  for(const [path,target] of [['/en/how-it-works/','/how-it-works/'],['/comment-ca-marche/','/fr/comment-ca-marche/']]){
   const html=await readFile('dist'+path+'index.html','utf8');

@@ -30,6 +30,7 @@ async function rewriteHTML(html,locale,source){
  const doc=parse(html);
  function visit(node){
   for(const a of node.attrs||[]){
+   if(['href','src','poster'].includes(a.name)&&a.value.startsWith('assets/'))a.value='/'+a.value;
    if(['href','action'].includes(a.name))a.value=publicURL(a.value);
    if(a.name==='src'&&node.tagName==='script'){
     if(locale==='fr'&&a.value.startsWith('/assets/'))a.value='/fr'+a.value;
