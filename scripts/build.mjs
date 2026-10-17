@@ -14,13 +14,15 @@ await import('./fairy-pack-page.mjs');
 await import('./how-page.mjs');
 await import('./guides-page.mjs');
 await import('./editorial-admin-page.mjs');
+await import('./legal-page.mjs');
 const {siteHeader,siteFooter}=await import('../content/layout.mjs');
+const {sharingMetadata,iconMetadata,socialAsset}=await import('../content/social-images.mjs');
 const {suppliedArtFor,viralCampaign,viralEditorial}=await import('../content/supplied-art.mjs');
 const {videoBand,listeningVideoBand}=await import('../content/video-band.mjs');
 const {guideCallout}=await import('../content/creation-steps.mjs');
 const {relatedPackCards}=await import('../content/related-packs.mjs');
 const root=new URL('../Promptya_Site/',import.meta.url);
-const origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya-lylx.vercel.app').replace(/\/$/,'');
+const origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya.app').replace(/\/$/,'');
 export const catalog=JSON.parse(await readFile(new URL('assets/catalog.json',root),'utf8'));
 catalog.sort((a,b)=>a.name.localeCompare(b.name,'fr'));
 if(catalog.some(p=>'prompts' in p))throw Error('Le catalogue public ne doit contenir aucun texte de prompt.');
@@ -60,7 +62,9 @@ async function walk(dir,relative=''){for(const e of await readdir(dir,{withFileT
  html=html.replace(/<meta (?:property="og:[^"]*"|name="twitter:[^"]*") content="[^"]*">/g,'');
  const title=html.match(/<title>(.*?)<\/title>/)?.[1]||'Promptya';const description=html.match(/<meta name="description" content="([^"]*)"/)?.[1]||'';
  html=html.replace('</head>',`<meta property="og:type" content="${path.startsWith('/packs/')&&path!=='/packs/'?'product':'website'}"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="Promptya"><meta property="og:title" content="${title}"><meta property="og:description" content="${description}"><meta property="og:url" content="${origin}${path}"><meta name="twitter:card" content="summary_large_image"></head>`);
- if(path.startsWith('/blog/')){if(path!=='/blog/')html=html.replace('property="og:type" content="website"','property="og:type" content="article"');const image=html.match(/<img src="(\/assets\/gallery\/[^" ]+)"/);if(image)html=html.replace('</head>',`<meta property="og:image" content="${origin}${image[1]}"></head>`);}
+ if(path.startsWith('/blog/')&&path!=='/blog/')html=html.replace('property="og:type" content="website"','property="og:type" content="article"');
+ html=html.replace(/<link[^>]+rel="(?:icon|apple-touch-icon)"[^>]*>/g,'').replace(/<meta name="theme-color"[^>]*>/g,'');
+ html=html.replace('</head>',iconMetadata+sharingMetadata(path,origin,title)+'</head>');
  await writeFile(new URL(e.name,dir),html);if(!/^(studio|admin|commandes|compte|panier)\//.test(rel)&&!html.includes('content="noindex,'))paths.push(path);
 }}}
 await walk(root);

@@ -1,0 +1,45 @@
+{
+  "scope": "Reviewed pack names, repeated pack headings, pack SEO templates and selected shared product copy. Full guide/article and regional editorial review is still required.",
+  "languages": {
+    "en": {
+      "reviewedKeys": 886,
+      "changedBlocks": 0,
+      "completeEditorialReview": false
+    },
+    "es": {
+      "reviewedKeys": 886,
+      "changedBlocks": 0,
+      "completeEditorialReview": false
+    },
+    "it": {
+      "reviewedKeys": 886,
+      "changedBlocks": 0,
+      "completeEditorialReview": false
+    },
+    "pt": {
+      "reviewedKeys": 886,
+      "changedBlocks": 106,
+      "completeEditorialReview": false
+    },
+    "de": {
+      "reviewedKeys": 886,
+      "changedBlocks": 0,
+      "completeEditorialReview": false
+    },
+    "nl": {
+      "reviewedKeys": 886,
+      "changedBlocks": 0,
+      "completeEditorialReview": false
+    },
+    "br": {
+      "reviewedKeys": 886,
+      "changedBlocks": 106,
+      "completeEditorialReview": false
+    },
+    "cz": {
+      "reviewedKeys": 886,
+      "changedBlocks": 0,
+      "completeEditorialReview": false
+    }
+  }
+}

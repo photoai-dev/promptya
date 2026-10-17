@@ -4,7 +4,7 @@ import {editorial,sources} from '../content/collections.mjs';
 import {faq as homeFaq,steps,homeContent} from '../content/home.mjs';
 import {suppliedExamples} from '../content/media.mjs';
 const root='Promptya_Site';const catalog=JSON.parse(await readFile(root+'/assets/catalog.json','utf8'));
-const origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya-lylx.vercel.app').replace(/\/$/,'');
+const origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya.app').replace(/\/$/,'');
 let home=await readFile(root+'/index.html','utf8');const header=home.match(/<header[\s\S]*?<\/header>/)[0],footer=home.match(/<footer[\s\S]*?<\/footer>/)[0];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ld=data=>`<script type="application/ld+json">${JSON.stringify(data).replace(/</g,'\\u003c')}</script>`;

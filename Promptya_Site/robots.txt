@@ -3,4 +3,4 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /compte/
 Disallow: /commandes/
-Sitemap: https://promptya-lylx.vercel.app/sitemap.xml
+Sitemap: https://promptya.app/sitemap.xml

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-const origin='https://promptya-lylx.vercel.app';
+const origin='https://promptya.app';
 for(const path of ['/','/blog/','/blog/shooting-paris-ia/','/packs/','/admin/','/admin/recadrage/','/connexion-admin/','/api/config']){
  const r=await fetch(origin+path,{signal:AbortSignal.timeout(20000)}),text=await r.text();
  assert.equal(r.status,path.startsWith('/admin/')?401:200,path);

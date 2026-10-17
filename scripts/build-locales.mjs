@@ -4,7 +4,7 @@ import {parse,serialize} from 'parse5';
 import {mascots,photoMarkup} from '../content/mascots.mjs';
 import {editorialKey,editorialRecord} from '../lib/editorial.mjs';
 import {loadEditorial} from './editorial-store.mjs';
-const root='Promptya_Site',origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya-lylx.vercel.app').replace(/\/$/,'');
+const root='Promptya_Site',origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya.app').replace(/\/$/,'');
 const config=JSON.parse(await readFile('content/locales/config.json','utf8')),locales=config.enabled.filter(l=>l!=='fr');
 const runtimeLabels=JSON.parse(await readFile('content/locales/runtime-labels.json','utf8'));
 const catalog=JSON.parse(await readFile(root+'/assets/catalog.json','utf8')),pages=[];
@@ -14,6 +14,7 @@ const sources=new Map();for(const path of pages){let s=await readFile(root+path+
 const routeMaps={fr:Object.fromEntries(pages.map(p=>[p,p]))};
 // Existing English URLs remain stable; ES/IT use stable source slugs and localized main navigation routes.
 routeMaps.en=JSON.parse(await readFile(root+'/en/routes.json','utf8'));
+routeMaps.en['/mentions-legales/']='/en/legal-notice/';
 const core={nl:{'comment-ca-marche':'hoe-het-werkt','connexion':'inloggen','inscription':'registreren','compte':'account','commandes':'bestellingen','panier':'winkelwagen','tarifs':'prijzen','blog':'magazine','galerie':'galerij','guides':'gidsen'},br:{'comment-ca-marche':'como-funciona','connexion':'entrar','inscription':'cadastro','compte':'minha-conta','commandes':'pedidos','panier':'carrinho','tarifs':'precos','blog':'revista','galerie':'galeria','guides':'guias'},cz:{'comment-ca-marche':'jak-to-funguje','connexion':'prihlaseni','inscription':'registrace','compte':'ucet','commandes':'objednavky','panier':'kosik','tarifs':'ceny','blog':'magazin','galerie':'galerie','guides':'pruvodce'},pt:{'comment-ca-marche':'como-funciona','connexion':'entrar','inscription':'registo','compte':'conta','commandes':'encomendas','panier':'carrinho','tarifs':'precos','blog':'revista','galerie':'galeria','guides':'guias'},de:{'comment-ca-marche':'so-funktioniert-es','connexion':'anmelden','inscription':'registrieren','compte':'konto','commandes':'bestellungen','panier':'warenkorb','tarifs':'preise','blog':'magazin','galerie':'galerie','guides':'ratgeber'},es:{'comment-ca-marche':'como-funciona','connexion':'iniciar-sesion','inscription':'registro','compte':'mi-cuenta','commandes':'pedidos','panier':'carrito','tarifs':'precios','blog':'revista','galerie':'galeria','guides':'guias'},it:{'comment-ca-marche':'come-funziona','connexion':'accedi','inscription':'registrazione','compte':'account','commandes':'ordini','panier':'carrello','tarifs':'prezzi','blog':'rivista','galerie':'galleria','guides':'guide'}};
 for(const locale of locales.filter(l=>l!=='en'))routeMaps[locale]=Object.fromEntries(pages.map(p=>[p,p==='/'?'/'+locale+'/':'/'+locale+'/'+(core[locale]?.[p.slice(1,-1)]||p.slice(1,-1))+'/']));
 const choose={fr:'Choisir la langue',en:'Choose your language',es:'Elegir idioma',it:'Scegli la lingua',pt:'Escolher idioma',de:'Sprache wählen',nl:'Kies je taal',br:'Escolher idioma',cz:'Vyberte jazyk'};
