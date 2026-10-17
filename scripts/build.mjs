@@ -11,6 +11,7 @@ await import('./admin-login-page.mjs');
 await import('./blog-pages.mjs');
 await import('./account-page.mjs');
 await import('./fairy-pack-page.mjs');
+await import('./how-page.mjs');
 const {siteHeader,siteFooter}=await import('../content/layout.mjs');
 const {suppliedArtFor,viralCampaign,viralEditorial}=await import('../content/supplied-art.mjs');
 const {videoBand,listeningVideoBand}=await import('../content/video-band.mjs');
