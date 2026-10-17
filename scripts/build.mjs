@@ -12,6 +12,7 @@ await import('./blog-pages.mjs');
 await import('./account-page.mjs');
 await import('./fairy-pack-page.mjs');
 await import('./how-page.mjs');
+await import('./guides-page.mjs');
 const {siteHeader,siteFooter}=await import('../content/layout.mjs');
 const {suppliedArtFor,viralCampaign,viralEditorial}=await import('../content/supplied-art.mjs');
 const {videoBand,listeningVideoBand}=await import('../content/video-band.mjs');
@@ -31,11 +32,12 @@ for(const category of ['voyage','mode','sport','creation','gourmandise']){
   await writeFile(file,html);
 }
 const paths=[];
-async function walk(dir,relative=''){for(const e of await readdir(dir,{withFileTypes:true})){const rel=relative+e.name;if(e.isDirectory())await walk(new URL(e.name+'/',dir),rel+'/');else if(e.name==='index.html'){
+async function walk(dir,relative=''){for(const e of await readdir(dir,{withFileTypes:true})){const rel=relative+e.name;if(e.isDirectory()&&e.name!=='en')await walk(new URL(e.name+'/',dir),rel+'/');else if(e.name==='index.html'){
  const path='/'+rel.replace('index.html','');let html=await readFile(new URL(e.name,dir),'utf8');html=html.replaceAll('https://promptya.com',origin).replaceAll('https://promptya-lylx.vercel.app',origin);
  if(/^\/packs\/[^/]+\/$/.test(path)){const slug=path.split('/')[2],block=relatedPackCards(slug,catalog);if(html.includes('<section class="related-packs'))html=html.replace(/<section class="related-packs[^"]*"[\s\S]*?<\/section>/,block);else html=html.replace('</main>','<div class="wrap">'+block+'</div></main>');if(!html.includes('/assets/related-packs.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/related-packs.css"></head>');}
  if(path==='/packs/')html=html.replace('class="wrap shop-main"','class="wrap shop-main catalogue-page"');
  html=html.replace(/<header[\s\S]*?<\/header>/,siteHeader);
+ if(!html.includes('/assets/navigation.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/navigation.css"><script defer src="/assets/navigation.js"></script></head>');
  if(path==='/'){html=html.replace(/<!-- random-packs:start -->[\s\S]*?<!-- random-packs:end -->/g,'');const initial=relatedPackCards('miami',catalog).replace('related-packs related-visual','related-packs related-visual page-width').replace('id="autres-collections"','id="home-random-packs"').replace('POUR COMPARER LES UNIVERS','LE HASARD FAIT BIEN LES CHOSES').replace('D’autres collections à découvrir.','Huit univers. Votre prochain déclic.').replace('<div class="related-pack-grid">','<p class="random-pack-intro">Laissez-vous surprendre par une sélection de nos collections.</p><button type="button" class="random-pack-refresh" id="random-pack-refresh">Une autre sélection ↻</button><div class="related-pack-grid" id="random-pack-grid">');html=html.replace('<section id="home-pricing"','<!-- random-packs:start -->'+initial+'<!-- random-packs:end --><section id="home-pricing"');if(!html.includes('/assets/random-packs.js'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/related-packs.css"><script type="module" src="/assets/random-packs.js"></script></head>');}
  if(path==='/'){html=html.replace('<a class="text-link" href="/blog/">Explorer les 30 guides →</a>',guideCallout);if(!html.includes('/assets/creation-steps.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/creation-steps.css"><script type="module" src="/assets/creation-steps.js"></script></head>');}
  if(path==='/'){html=html.replace(/<!-- home-video2:start -->[\s\S]*?<!-- home-video2:end -->/g,'');const journal='<section id="home-journal" class="page-width seo-section">';if(!html.includes(journal))throw Error('Emplacement vidéo avant journal introuvable');html=html.replace(journal,'<!-- home-video2:start -->'+listeningVideoBand+'<!-- home-video2:end -->'+journal);}
@@ -64,6 +66,7 @@ await walk(root);
 await writeFile(new URL('sitemap.xml',root),'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+paths.map(p=>`<url><loc>${origin}${p}</loc></url>`).join('')+'</urlset>');
 await writeFile(new URL('robots.txt',root),`User-agent: *\nDisallow: /api/\nDisallow: /admin/\nDisallow: /compte/\nDisallow: /commandes/\nSitemap: ${origin}/sitemap.xml\n`);
 await writeFile(new URL('llms.txt',root),`# Promptya\nPacks d’images IA personnalisées. 106 collections. 100 photos par pack : 22,90 EUR ; 2 packs à 19,90 EUR chacun ; 3 à 16,90 EUR ; 4 à 14,90 EUR. Mascottes exclusives : 69,90 EUR pour 30 photos. Covers : tarif distinct à définir.\nLes prompts sont internes, seuls les résultats sont livrés en ZIP.\nL’objectif de deux heures n’est pas une garantie validée.\n\n## Pages\n- [Catalogue](${origin}/packs/)\n- [Fonctionnement](${origin}/comment-ca-marche/)\n- [Tarifs](${origin}/tarifs/)\n- [FAQ](${origin}/#faq)\n\n## Collections\n${paths.filter(p=>/^\/packs\/.+/.test(p)).map(p=>`- ${origin}${p}`).join('\n')}\n`);
+await import('./build-locales.mjs');
 await mkdir('.server-ui/admin',{recursive:true});await cp(new URL('admin/',root),'.server-ui/admin',{recursive:true});
 await mkdir('dist',{recursive:true});await cp(root,'dist',{recursive:true});
 const staticAdmin=new URL('../dist/admin/',import.meta.url);if(!staticAdmin.href.startsWith(new URL('../dist/',import.meta.url).href))throw Error('Chemin public administrateur invalide');
