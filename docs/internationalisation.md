@@ -37,3 +37,9 @@ Les ressources JS et données françaises sont isolées sous `/fr/assets/` ; les
 `/sitemap.xml` est un index vers `/sitemaps/fr.xml`, `/sitemaps/en.xml`, etc. Chaque sitemap contient les pages indexables de sa langue et leurs liens alternatifs. Les pages privées et administratives sont exclues. Le brésilien conserve `pt-BR` ; les codes du polonais et du japonais sont `pl` et `ja`. Les prix restent en euros : aucune conversion de devise fictive.
 
 Les principaux messages commerciaux et titres des packs PL/JA sont adaptés dans `content/locales/pl-ja-copy.mjs`. Les textes éditoriaux initiaux sont en base. La recherche accepte les caractères Unicode, notamment japonais.
+
+## Titres et descriptions SEO
+
+`content/seo-copy.mjs` définit les intentions et formulations SEO des 176 routes dans les 11 langues : générateur et offre de 3 photos gratuites après inscription sur l’accueil, destination pour les voyages, générateur thématique pour les collections créatives, questions pratiques pour les articles. Les titres ne contiennent pas de prix. Les collections payantes ne sont pas présentées comme gratuites. Cette mise à jour des balises ne met pas en place le mécanisme de crédit ou de génération de l’essai gratuit.
+
+`content/seo-audit.json` conserve le relevé complet (route source, langue, titre, description, intention et longueur indicative). `scripts/refresh-seo.mjs` est un outil de révision globale à lancer explicitement, pas une étape automatique écrasant les changements de l’administration. Le build utilise les métadonnées enregistrées en base ; les nouvelles pages utilisent la grille SEO comme valeur initiale. Les balises Open Graph et Twitter reprennent les mêmes titres et descriptions.
