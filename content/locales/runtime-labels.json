@@ -175,5 +175,51 @@
       "modrá",
       "terakota"
     ]
+  },
+  "pl": {
+    "one": "kolekcja",
+    "many": "kolekcje",
+    "countPrefix": "Znalezione kolekcje: ",
+    "preview": "Podgląd pakietu:",
+    "universe": "Motyw:",
+    "added": "Pakiet dodany.",
+    "total": "łącznie",
+    "per": "za pakiet",
+    "for": "za ten pakiet",
+    "generated": "Wygenerowane obrazy:",
+    "progress": "Generowanie w toku",
+    "orders": "Brak zamówień",
+    "results": "Brak wyników",
+    "step": "Krok",
+    "of": "z",
+    "placement": "Temat w prawej trzeciej części kadru",
+    "palette": [
+      "kremowy",
+      "niebieski",
+      "terakota"
+    ]
+  },
+  "ja": {
+    "one": "件のコレクション",
+    "many": "件のコレクション",
+    "countPrefix": "見つかったコレクション：",
+    "preview": "パックのプレビュー：",
+    "universe": "テーマ：",
+    "added": "パックを追加しました。",
+    "total": "合計",
+    "per": "パックあたり",
+    "for": "このパック",
+    "generated": "生成済み画像：",
+    "progress": "画像を生成しています",
+    "orders": "注文はまだありません",
+    "results": "該当する結果はありません",
+    "step": "ステップ",
+    "of": "／",
+    "placement": "被写体を画面の右側3分の1に配置",
+    "palette": [
+      "クリーム色",
+      "青",
+      "テラコッタ"
+    ]
   }
 }

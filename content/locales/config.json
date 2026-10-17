@@ -1,5 +1,5 @@
 {
-  "default": "fr",
+  "default": "en",
   "enabled": [
     "fr",
     "en",
@@ -9,18 +9,20 @@
     "de",
     "nl",
     "br",
-    "cz"
+    "cz",
+    "pl",
+    "ja"
   ],
   "languages": {
     "fr": {
       "name": "Français",
       "flag": "🇫🇷",
-      "prefix": "/"
+      "prefix": "/fr/"
     },
     "en": {
       "name": "English",
       "flag": "🇬🇧",
-      "prefix": "/en/"
+      "prefix": "/"
     },
     "it": {
       "name": "Italiano",
@@ -67,6 +69,22 @@
       "htmlLang": "cs-CZ",
       "intl": "cs-CZ",
       "og": "cs_CZ"
+    },
+    "pl": {
+      "name": "Polski",
+      "flag": "🇵🇱",
+      "prefix": "/pl/",
+      "htmlLang": "pl",
+      "intl": "pl-PL",
+      "og": "pl_PL"
+    },
+    "ja": {
+      "name": "日本語",
+      "flag": "🇯🇵",
+      "prefix": "/ja/",
+      "htmlLang": "ja",
+      "intl": "ja-JP",
+      "og": "ja_JP"
     }
   }
 }

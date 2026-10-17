@@ -10,7 +10,9 @@ pt:['Aviso legal','Informações sobre promptya.app, os contactos e o alojamento
 de:['Impressum','Informationen zu promptya.app, Kontakt und Hosting.','Website','Kontakt','Hosting','Vereinigte Staaten'],
 nl:['Juridische informatie','Informatie over promptya.app, contactgegevens en hosting.','Website','Contact','Hosting','Verenigde Staten'],
 br:['Aviso legal','Informações sobre promptya.app, contato e hospedagem.','Site','Contato','Hospedagem','Estados Unidos'],
-cz:['Právní informace','Informace o webu promptya.app, kontaktech a hostingu.','Webové stránky','Kontakt','Hosting','Spojené státy']
+cz:['Právní informace','Informace o webu promptya.app, kontaktech a hostingu.','Webové stránky','Kontakt','Hosting','Spojené státy'],
+pl:['Informacje prawne','Informacje o stronie promptya.app, danych kontaktowych i hostingu.','Strona internetowa','Kontakt','Hosting','Stany Zjednoczone'],
+ja:['サイト運営情報','promptya.appのウェブサイト、お問い合わせ先、ホスティングに関する情報です。','ウェブサイト','お問い合わせ','ホスティング','アメリカ合衆国']
 };
 const c=legalCopy.fr;
 await mkdir('Promptya_Site/mentions-legales',{recursive:true});

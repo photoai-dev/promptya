@@ -35,7 +35,7 @@ for(const category of ['voyage','mode','sport','creation','gourmandise']){
   await writeFile(file,html);
 }
 const paths=[];
-async function walk(dir,relative=''){for(const e of await readdir(dir,{withFileTypes:true})){const rel=relative+e.name;if(e.isDirectory()&&!['en','es','it','pt','de','nl','br','cz'].includes(e.name))await walk(new URL(e.name+'/',dir),rel+'/');else if(e.name==='index.html'){
+async function walk(dir,relative=''){for(const e of await readdir(dir,{withFileTypes:true})){const rel=relative+e.name;if(e.isDirectory()&&!['en','es','it','pt','de','nl','br','cz','pl','ja'].includes(e.name))await walk(new URL(e.name+'/',dir),rel+'/');else if(e.name==='index.html'){
  const path='/'+rel.replace('index.html','');let html=await readFile(new URL(e.name,dir),'utf8');html=html.replaceAll('https://promptya.com',origin).replaceAll('https://promptya-lylx.vercel.app',origin);
  if(/^\/packs\/[^/]+\/$/.test(path)){const slug=path.split('/')[2],block=relatedPackCards(slug,catalog);if(html.includes('<section class="related-packs'))html=html.replace(/<section class="related-packs[^"]*"[\s\S]*?<\/section>/,block);else html=html.replace('</main>','<div class="wrap">'+block+'</div></main>');if(!html.includes('/assets/related-packs.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/related-packs.css"></head>');}
  if(path==='/packs/')html=html.replace('class="wrap shop-main"','class="wrap shop-main catalogue-page"');
@@ -76,4 +76,5 @@ await mkdir('.server-ui/admin',{recursive:true});await cp(new URL('admin/',root)
 await mkdir('dist',{recursive:true});await cp(root,'dist',{recursive:true});
 const staticAdmin=new URL('../dist/admin/',import.meta.url);if(!staticAdmin.href.startsWith(new URL('../dist/',import.meta.url).href))throw Error('Chemin public administrateur invalide');
 await rm(staticAdmin,{recursive:true,force:true});
+await import('./publish-language-root.mjs');
 console.log(JSON.stringify({collections:catalog.length,promptsInternes:catalog.reduce((n,p)=>n+p.promptCount,0),pages:'dist/'}));

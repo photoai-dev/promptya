@@ -2,11 +2,453 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "cleanUrls": false,
-  "functions": {"api/**/*.js": {"maxDuration": 60, "includeFiles": "{Promptya_Site/assets/catalog.json,.server-ui/admin/**}"}},
-  "rewrites": [{"source":"/admin","destination":"/api/admin-page"},{"source":"/admin/","destination":"/api/admin-page"},{"source":"/admin/recadrage","destination":"/api/admin-page?path=recadrage"},{"source":"/admin/recadrage/","destination":"/api/admin-page?path=recadrage"},{"source":"/admin/recadrage/index.html","destination":"/api/admin-page?path=recadrage"},{"source":"/admin/:path*","destination":"/api/admin-page?path=:path*"}],
-  "crons": [{"path": "/api/worker", "schedule": "*/5 * * * *"}],
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 60,
+      "includeFiles": "{Promptya_Site/assets/catalog.json,.server-ui/admin/**}"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "/api/admin-page"
+    },
+    {
+      "source": "/admin/",
+      "destination": "/api/admin-page"
+    },
+    {
+      "source": "/admin/recadrage",
+      "destination": "/api/admin-page?path=recadrage"
+    },
+    {
+      "source": "/admin/recadrage/",
+      "destination": "/api/admin-page?path=recadrage"
+    },
+    {
+      "source": "/admin/recadrage/index.html",
+      "destination": "/api/admin-page?path=recadrage"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/api/admin-page?path=:path*"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/worker",
+      "schedule": "*/5 * * * *"
+    }
+  ],
   "headers": [
-    {"source": "/api/(.*)", "headers": [{"key": "Cache-Control", "value": "no-store"}]},
-    {"source": "/(.*)", "headers": [{"key": "X-Content-Type-Options", "value": "nosniff"}, {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"}]}
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/en",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/en/:path*",
+      "destination": "/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "/fr/blog/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/compte/:path*",
+      "destination": "/fr/compte/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/panier/:path*",
+      "destination": "/fr/panier/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/tarifs/:path*",
+      "destination": "/fr/tarifs/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/galerie/:path*",
+      "destination": "/fr/galerie/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/connexion/:path*",
+      "destination": "/fr/connexion/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/commandes/:path*",
+      "destination": "/fr/commandes/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/kiev/:path*",
+      "destination": "/fr/packs/kiev/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/noel/:path*",
+      "destination": "/fr/packs/noel/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/inscription/:path*",
+      "destination": "/fr/inscription/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/chine/:path*",
+      "destination": "/fr/packs/chine/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/corse/:path*",
+      "destination": "/fr/packs/corse/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/glace/:path*",
+      "destination": "/fr/packs/glace/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/japon/:path*",
+      "destination": "/fr/packs/japon/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/maroc/:path*",
+      "destination": "/fr/packs/maroc/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/bonbon/:path*",
+      "destination": "/fr/packs/bonbon/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/bresil/:path*",
+      "destination": "/fr/packs/bresil/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/geneve/:path*",
+      "destination": "/fr/packs/geneve/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/italie/:path*",
+      "destination": "/fr/packs/italie/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/moscou/:path*",
+      "destination": "/fr/packs/moscou/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/russie/:path*",
+      "destination": "/fr/packs/russie/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/suisse/:path*",
+      "destination": "/fr/packs/suisse/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/venise/:path*",
+      "destination": "/fr/packs/venise/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/vienne/:path*",
+      "destination": "/fr/packs/vienne/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/athenes/:path*",
+      "destination": "/fr/packs/athenes/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/emirats/:path*",
+      "destination": "/fr/packs/emirats/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/espagne/:path*",
+      "destination": "/fr/packs/espagne/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/foot-l1/:path*",
+      "destination": "/fr/packs/foot-l1/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/hongrie/:path*",
+      "destination": "/fr/packs/hongrie/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/londres/:path*",
+      "destination": "/fr/packs/londres/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/mexique/:path*",
+      "destination": "/fr/packs/mexique/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/plat-3d/:path*",
+      "destination": "/fr/packs/plat-3d/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/pologne/:path*",
+      "destination": "/fr/packs/pologne/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/pragues/:path*",
+      "destination": "/fr/packs/pragues/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/autriche/:path*",
+      "destination": "/fr/packs/autriche/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/beiijing/:path*",
+      "destination": "/fr/packs/beiijing/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/bucarest/:path*",
+      "destination": "/fr/packs/bucarest/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/colombie/:path*",
+      "destination": "/fr/packs/colombie/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/le-caire/:path*",
+      "destination": "/fr/packs/le-caire/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/lisbonne/:path*",
+      "destination": "/fr/packs/lisbonne/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/roumanie/:path*",
+      "destination": "/fr/packs/roumanie/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/santorin/:path*",
+      "destination": "/fr/packs/santorin/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/categories/mode/:path*",
+      "destination": "/fr/categories/mode/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/allemagne/:path*",
+      "destination": "/fr/packs/allemagne/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/argentine/:path*",
+      "destination": "/fr/packs/argentine/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/australie/:path*",
+      "destination": "/fr/packs/australie/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/barcelone/:path*",
+      "destination": "/fr/packs/barcelone/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/indonesie/:path*",
+      "destination": "/fr/packs/indonesie/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/marrakech/:path*",
+      "destination": "/fr/packs/marrakech/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/pole-nord/:path*",
+      "destination": "/fr/packs/pole-nord/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/thailande/:path*",
+      "destination": "/fr/packs/thailande/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/le-vatican/:path*",
+      "destination": "/fr/packs/le-vatican/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/patisserie/:path*",
+      "destination": "/fr/packs/patisserie/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/serie-tele/:path*",
+      "destination": "/fr/packs/serie-tele/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/mentions-legales/:path*",
+      "destination": "/fr/mentions-legales/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/comment-ca-marche/:path*",
+      "destination": "/fr/comment-ca-marche/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/categories/voyage/:path*",
+      "destination": "/fr/categories/voyage/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/jouet-geant/:path*",
+      "destination": "/fr/packs/jouet-geant/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/animaux-reel/:path*",
+      "destination": "/fr/packs/animaux-reel/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/coree-du-sud/:path*",
+      "destination": "/fr/packs/coree-du-sud/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/les-maldives/:path*",
+      "destination": "/fr/packs/les-maldives/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/robe-drapeau/:path*",
+      "destination": "/fr/packs/robe-drapeau/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/sport-action/:path*",
+      "destination": "/fr/packs/sport-action/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/happynew-year/:path*",
+      "destination": "/fr/packs/happynew-year/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/lieu-iconique/:path*",
+      "destination": "/fr/packs/lieu-iconique/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/coupe-du-monde/:path*",
+      "destination": "/fr/packs/coupe-du-monde/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/film-par-scene/:path*",
+      "destination": "/fr/packs/film-par-scene/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/robe-santorini/:path*",
+      "destination": "/fr/packs/robe-santorini/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/univers/miniatures-3d/:path*",
+      "destination": "/fr/univers/miniatures-3d/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/categories/gourmandise/:path*",
+      "destination": "/fr/categories/gourmandise/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/univers/beaute-creative/:path*",
+      "destination": "/fr/univers/beaute-creative/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/scene-action-film/:path*",
+      "destination": "/fr/packs/scene-action-film/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/noel-de-strasbourg/:path*",
+      "destination": "/fr/packs/noel-de-strasbourg/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/republique-tcheque/:path*",
+      "destination": "/fr/packs/republique-tcheque/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/packs/noir-blanc-portrait/:path*",
+      "destination": "/fr/packs/noir-blanc-portrait/:path*",
+      "statusCode": 301
+    }
   ]
 }

@@ -1,8 +1,8 @@
 # Internationalisation et contenus éditoriaux
 
-Le français reste à la racine. Versions actives : `/en/`, `/es/`, `/it/`, `/pt/`, `/de/`, `/nl/`, `/br/`, `/cz/`. La variante brésilienne utilise `pt-BR`, la version portugaise `pt-PT` et le tchèque `cs-CZ` dans les balises de langue et de référencement. Les dossiers `/br/` et `/cz/` correspondent aux noms demandés.
+L’anglais est publié à la racine de `https://promptya.app/`, le français sous `/fr/`. Autres versions actives : `/es/`, `/it/`, `/pt/`, `/de/`, `/nl/`, `/br/`, `/cz/`, `/pl/`, `/ja/`. Les anciennes URL `/en/…` sont redirigées en 301 vers la racine. La variante brésilienne utilise `pt-BR`, la version portugaise `pt-PT` et le tchèque `cs-CZ` dans les balises de langue et de référencement. Les dossiers `/br/` et `/cz/` correspondent aux noms demandés.
 
-Les textes publics des 175 pages initiales de chaque langue sont enregistrés dans `public.editorial_pages` : textes éditoriaux, titres SEO, descriptions. Les blocs sont identifiés par le hash de leur texte source. Les prompts de génération restent dans leur table privée, sans traduction ni export.
+Les textes publics des 176 pages de chacune des 11 versions sont enregistrés dans `public.editorial_pages` : textes éditoriaux, titres SEO, descriptions. Les blocs sont identifiés par le hash de leur texte source. Les prompts de génération restent dans leur table privée, sans traduction ni export.
 
 Les messages dynamiques et leurs formes plurielles sont définis dans `content/locales/runtime-labels.json`.
 
@@ -27,3 +27,13 @@ Le domaine public de référence est `https://promptya.app`. La page `/mentions-
 ## Aperçus de partage
 
 `content/social-images.mjs` sélectionne une image par route source (pack, article, personnage, rubrique). Les variantes linguistiques partagent le visuel et traduisent leurs titres et descriptions. Les JPEG de 1200 × 630 sont préparés hors build avec `node scripts/prepare-social-assets.mjs` puis `scripts/optimize-social-assets.py`, et versionnés : Vercel ne dépend pas de Python. Les favicon SVG/ICO et l’icône Apple sont intégrés à toutes les pages.
+
+## Publication et référencement multilingues
+
+Les sources françaises restent dans `Promptya_Site/` pour préserver le système de génération et les clés `source_route` en base. `scripts/publish-language-root.mjs` publie uniquement dans `dist/` : anglais à la racine, français sous `/fr/`, autres langues sous leur préfixe. Ne pas remplacer les sources françaises par les fichiers publics anglais.
+
+Les ressources JS et données françaises sont isolées sous `/fr/assets/` ; les ressources anglaises sont à `/assets/`. Le déplacement préserve les routes API. Les variantes linguistiques disposent de canonical et hreflang réciproques ; x-default désigne la page anglaise correspondante.
+
+`/sitemap.xml` est un index vers `/sitemaps/fr.xml`, `/sitemaps/en.xml`, etc. Chaque sitemap contient les pages indexables de sa langue et leurs liens alternatifs. Les pages privées et administratives sont exclues. Le brésilien conserve `pt-BR` ; les codes du polonais et du japonais sont `pl` et `ja`. Les prix restent en euros : aucune conversion de devise fictive.
+
+Les principaux messages commerciaux et titres des packs PL/JA sont adaptés dans `content/locales/pl-ja-copy.mjs`. Les textes éditoriaux initiaux sont en base. La recherche accepte les caractères Unicode, notamment japonais.

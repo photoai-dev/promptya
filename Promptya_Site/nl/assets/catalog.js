@@ -1,5 +1,5 @@
 import {getCart,addPack} from './cart-store.js';import {quotePacks,euros} from './pricing.js';
-const normalize=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+const normalize=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}\p{M}]+/gu,' ').trim();
 const input=document.getElementById('catalog-search'),type=document.getElementById('catalog-type'),sort=document.getElementById('catalog-sort'),grid=document.getElementById('catalog-grid'),cards=[...grid.children],params=new URLSearchParams(location.search);input.value=params.get('q')||'';type.value=params.get('type')||'';sort.value=params.get('sort')||'name';
 const checks=[...document.querySelectorAll('[data-facet]')];for(const box of checks)box.checked=(params.get(box.dataset.facet)||'').split(',').includes(box.value);
 const selected=facet=>checks.filter(x=>x.dataset.facet===facet&&x.checked).map(x=>x.value);

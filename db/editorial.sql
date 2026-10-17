@@ -1,7 +1,7 @@
 -- Public editorial content only. Internal generation prompts stay in collection_prompts.
 create table if not exists public.editorial_pages (
  source_route text not null check (source_route ~ '^/'),
- locale text not null check (locale in ('fr','en','es','it','pt','de','nl','br','cz')),
+ locale text not null check (locale in ('fr','en','es','it','pt','de','nl','br','cz','pl','ja')),
  kind text not null check (kind in ('page','pack','article','guide','character')),
  title text not null default '', description text not null default '',
  blocks jsonb not null default '{}'::jsonb check (jsonb_typeof(blocks)='object'),

@@ -1,5 +1,5 @@
 const locale=document.documentElement.dataset.locale||document.documentElement.lang;
-fetch('/'+locale+'/assets/locale-data.json').then(r=>{if(!r.ok)throw Error('Locale unavailable');return r.json();}).then(({dictionary,routes,labels})=>{
+fetch((locale==='en'?'':'/'+locale)+'/assets/locale-data.json').then(r=>{if(!r.ok)throw Error('Locale unavailable');return r.json();}).then(({dictionary,routes,labels})=>{
  const normalize=s=>s.replace(/\s+/g,' ').trim(),normalized=new Map(Object.entries(dictionary).map(([a,b])=>[normalize(a),b]));
  const fragments=Object.entries({'Univers du pack ':labels.preview+' ','Univers ':labels.universe+' ','Pack ajouté. ':labels.added+' ',' au total.':' '+labels.total+'.',' au total':' '+labels.total,' par pack':' '+labels.per,' pour ce pack':' '+labels.for,' collection trouvée':' '+labels.one,' collections trouvées':' '+labels.many,'Photos générées : ':labels.generated+' ','Génération en cours':labels.progress,'Aucune commande':labels.orders,'Aucun résultat':labels.results,'Étape ':labels.step+' ',' sur ':' '+labels.of+' '}).sort((a,b)=>b[0].length-a[0].length);
  const tr=s=>{const trim=s.trim(),value=dictionary[trim]||normalized.get(normalize(trim));if(value)return s.replace(trim,value);let out=s;for(const [fr,target] of fragments)if(out.includes(fr))out=out.split(fr).join(target);return out;};
