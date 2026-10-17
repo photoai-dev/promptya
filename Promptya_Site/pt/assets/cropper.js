@@ -1,0 +1,16 @@
+const canvas=document.querySelector('#crop-canvas'),ctx=canvas.getContext('2d'),status=document.querySelector('#crop-status');
+let image=null,selection=null,start=null,url=null;
+const fields=['x','y','width','height'].map(n=>document.querySelector('#crop-'+n));
+function sync(){if(!image)return;let [x,y,w,h]=fields.map(f=>Number(f.value)||0);x=Math.max(0,Math.min(image.width-1,x));y=Math.max(0,Math.min(image.height-1,y));selection={x,y,w:Math.max(1,Math.min(w,image.width-x)),h:Math.max(1,Math.min(h,image.height-y))};draw();}
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);if(!image)return;ctx.drawImage(image,0,0);const s=selection;ctx.fillStyle='#17132188';ctx.fillRect(0,0,canvas.width,s.y);ctx.fillRect(0,s.y+s.h,canvas.width,canvas.height-s.y-s.h);ctx.fillRect(0,s.y,s.x,s.h);ctx.fillRect(s.x+s.w,s.y,canvas.width-s.x-s.w,s.h);ctx.strokeStyle='#daff83';ctx.lineWidth=Math.max(2,image.width/400);ctx.strokeRect(s.x,s.y,s.w,s.h);[s.x,s.y,s.w,s.h].forEach((v,i)=>fields[i].value=Math.round(v));const preview=document.querySelector('#crop-preview');preview.width=Math.round(s.w);preview.height=Math.round(s.h);preview.getContext('2d').drawImage(image,s.x,s.y,s.w,s.h,0,0,s.w,s.h);status.textContent=`Recadrage : ${Math.round(s.w)} × ${Math.round(s.h)} px`;document.querySelector('#crop-download').disabled=false;}
+function load(src){const next=new Image();next.onload=()=>{image=next;canvas.width=image.width;canvas.height=image.height;selection={x:0,y:0,w:image.width,h:image.height};draw();};next.onerror=()=>status.textContent="Não foi possível reproduzir esta imagem.";next.src=src;}
+document.querySelector('#crop-file').onchange=e=>{const file=e.target.files[0];if(!file)return;if(!file.type.startsWith('image/')){status.textContent="Escolha um arquivo de imagem.";return;}if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(file);load(url);};
+document.querySelector('#crop-source').onchange=e=>{if(e.target.value)load(e.target.value);};
+function point(e){const r=canvas.getBoundingClientRect();return {x:Math.max(0,Math.min(canvas.width,(e.clientX-r.left)*canvas.width/r.width)),y:Math.max(0,Math.min(canvas.height,(e.clientY-r.top)*canvas.height/r.height))};}
+canvas.onpointerdown=e=>{if(!image)return;start=point(e);canvas.setPointerCapture(e.pointerId);};
+canvas.onpointermove=e=>{if(!start)return;const p=point(e);selection={x:Math.min(start.x,p.x),y:Math.min(start.y,p.y),w:Math.max(1,Math.abs(p.x-start.x)),h:Math.max(1,Math.abs(p.y-start.y))};draw();};
+canvas.onpointerup=canvas.onpointercancel=()=>start=null;
+fields.forEach(f=>f.oninput=sync);
+document.querySelector('#crop-reset').onclick=()=>{if(image){selection={x:0,y:0,w:image.width,h:image.height};draw();}};
+document.querySelector('#crop-download').onclick=()=>document.querySelector('#crop-preview').toBlob(blob=>{if(!blob)return;const href=URL.createObjectURL(blob),a=document.createElement('a');a.href=href;a.download='promptya-image-recadree.png';a.click();setTimeout(()=>URL.revokeObjectURL(href),1000);},'image/png');
+fetch('/pt/assets/mascots.json').then(r=>r.json()).then(items=>{const select=document.querySelector('#crop-source');for(const m of items){const o=document.createElement('option');o.value='/assets/viral/'+m.slug+'.webp';o.textContent=m.name;select.append(o);}}).catch(()=>{});
