@@ -12,6 +12,7 @@ await import('./blog-pages.mjs');
 await import('./account-page.mjs');
 await import('./fairy-pack-page.mjs');
 const {siteHeader,siteFooter}=await import('../content/layout.mjs');
+const {suppliedArtFor,viralCampaign}=await import('../content/supplied-art.mjs');
 const root=new URL('../Promptya_Site/',import.meta.url);
 const origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya-lylx.vercel.app').replace(/\/$/,'');
 export const catalog=JSON.parse(await readFile(new URL('assets/catalog.json',root),'utf8'));
@@ -29,6 +30,9 @@ const paths=[];
 async function walk(dir,relative=''){for(const e of await readdir(dir,{withFileTypes:true})){const rel=relative+e.name;if(e.isDirectory())await walk(new URL(e.name+'/',dir),rel+'/');else if(e.name==='index.html'){
  const path='/'+rel.replace('index.html','');let html=await readFile(new URL(e.name,dir),'utf8');html=html.replaceAll('https://promptya.com',origin).replaceAll('https://promptya-lylx.vercel.app',origin);
  html=html.replace(/<header[\s\S]*?<\/header>/,siteHeader);
+ html=html.replace(/<!-- supplied-art:start -->[\s\S]*?<!-- supplied-art:end -->/g,'').replace(/<!-- supplied-art-bottom:start -->[\s\S]*?<!-- supplied-art-bottom:end -->/g,'');
+ const pageArt=suppliedArtFor(path);if(pageArt){const block=`<!-- supplied-art:start -->${pageArt}<!-- supplied-art:end -->`;html=path==='/'?html.replace('</main>',block+'</main>'):html.replace(/(<main[^>]*>)/,'$1'+block);if(!html.includes('/assets/supplied-art.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/supplied-art.css"></head>');}
+ if(path==='/viral-trend/')html=html.replace('</main>','<!-- supplied-art-bottom:start -->'+viralCampaign+'<!-- supplied-art-bottom:end --></main>');
  if(!path.startsWith('/admin/')){html=html.replace(/<footer[\s\S]*?<\/footer>/,siteFooter);if(!html.includes('class="site-footer"'))html=html.replace('</body>',siteFooter+'</body>');if(!html.includes('/assets/footer.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/footer.css"></head>');}
  if(path.startsWith('/admin/')&&!html.includes('/assets/admin-private.js'))html=html.replace('</head>','<script defer src="/assets/admin-private.js"></script></head>');
  if(!path.startsWith('/admin/')&&html.includes('<footer')&&!html.includes('href="/blog/">Le journal</a>'))html=html.replace('</footer>','<div class="wrap" style="padding-bottom:20px"><a href="/blog/">Le journal</a></div></footer>');
