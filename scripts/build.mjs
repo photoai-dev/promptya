@@ -13,7 +13,7 @@ await import('./account-page.mjs');
 await import('./fairy-pack-page.mjs');
 const {siteHeader,siteFooter}=await import('../content/layout.mjs');
 const {suppliedArtFor,viralCampaign,viralEditorial}=await import('../content/supplied-art.mjs');
-const {videoBand}=await import('../content/video-band.mjs');
+const {videoBand,listeningVideoBand}=await import('../content/video-band.mjs');
 const root=new URL('../Promptya_Site/',import.meta.url);
 const origin=(process.env.SITE_URL||process.env.APP_URL||'https://promptya-lylx.vercel.app').replace(/\/$/,'');
 export const catalog=JSON.parse(await readFile(new URL('assets/catalog.json',root),'utf8'));
@@ -32,6 +32,7 @@ async function walk(dir,relative=''){for(const e of await readdir(dir,{withFileT
  const path='/'+rel.replace('index.html','');let html=await readFile(new URL(e.name,dir),'utf8');html=html.replaceAll('https://promptya.com',origin).replaceAll('https://promptya-lylx.vercel.app',origin);
  if(path==='/packs/')html=html.replace('class="wrap shop-main"','class="wrap shop-main catalogue-page"');
  html=html.replace(/<header[\s\S]*?<\/header>/,siteHeader);
+ if(path==='/'){html=html.replace(/<!-- home-video2:start -->[\s\S]*?<!-- home-video2:end -->/g,'');const journal='<section id="home-journal" class="page-width seo-section">';if(!html.includes(journal))throw Error('Emplacement vidéo avant journal introuvable');html=html.replace(journal,'<!-- home-video2:start -->'+listeningVideoBand+'<!-- home-video2:end -->'+journal);}
  if(path==='/'){html=html.replace(/<!-- home-video:start -->[\s\S]*?<!-- home-video:end -->/g,'');const marker='<section class="seo-section page-width"><div class="seo-heading"><span class="eyebrow">BIEN PRÉPARER SA SÉRIE</span>';if(!html.includes(marker))throw Error('Emplacement du bandeau vidéo introuvable');html=html.replace(marker,'<!-- home-video:start -->'+videoBand+'<!-- home-video:end -->'+marker);if(!html.includes('/assets/home-video.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/home-video.css"><script type="module" src="/assets/home-video.js"></script></head>');}
  html=html.replace(/<!-- supplied-art:start -->[\s\S]*?<!-- supplied-art:end -->/g,'').replace(/<!-- supplied-art-bottom:start -->[\s\S]*?<!-- supplied-art-bottom:end -->/g,'');
  const pageArt=suppliedArtFor(path);if(pageArt){const block=`<!-- supplied-art:start -->${pageArt}<!-- supplied-art:end -->`;html=['/','/packs/'].includes(path)?html.replace('</main>',block+'</main>'):html.replace(/(<main[^>]*>)/,'$1'+block);if(!html.includes('/assets/supplied-art.css'))html=html.replace('</head>','<link rel="stylesheet" href="/assets/supplied-art.css"></head>');}
