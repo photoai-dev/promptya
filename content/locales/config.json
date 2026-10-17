@@ -1,1 +1,46 @@
-{"default":"fr","enabled":["fr","en"],"languages":{"fr":{"name":"Français","flag":"🇫🇷","prefix":"/"},"en":{"name":"English","flag":"🇬🇧","prefix":"/en/"},"it":{"name":"Italiano","flag":"🇮🇹","prefix":"/it/"},"es":{"name":"Español","flag":"🇪🇸","prefix":"/es/"},"pt":{"name":"Português","flag":"🇵🇹","prefix":"/pt/"},"de":{"name":"Deutsch","flag":"🇩🇪","prefix":"/de/"},"nl":{"name":"Nederlands","flag":"🇳🇱","prefix":"/nl/"}}}
+{
+  "default": "fr",
+  "enabled": [
+    "fr",
+    "en",
+    "es",
+    "it"
+  ],
+  "languages": {
+    "fr": {
+      "name": "Français",
+      "flag": "🇫🇷",
+      "prefix": "/"
+    },
+    "en": {
+      "name": "English",
+      "flag": "🇬🇧",
+      "prefix": "/en/"
+    },
+    "it": {
+      "name": "Italiano",
+      "flag": "🇮🇹",
+      "prefix": "/it/"
+    },
+    "es": {
+      "name": "Español",
+      "flag": "🇪🇸",
+      "prefix": "/es/"
+    },
+    "pt": {
+      "name": "Português",
+      "flag": "🇵🇹",
+      "prefix": "/pt/"
+    },
+    "de": {
+      "name": "Deutsch",
+      "flag": "🇩🇪",
+      "prefix": "/de/"
+    },
+    "nl": {
+      "name": "Nederlands",
+      "flag": "🇳🇱",
+      "prefix": "/nl/"
+    }
+  }
+}
