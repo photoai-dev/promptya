@@ -32,6 +32,8 @@ const names={
 'Supercars':['Supersamochody','スーパーカー']
 };
 const copy={
+'Promptya — Packs d’images IA personnalisées dès 22,90 €':['Promptya — spersonalizowane obrazy AI od 22,90 €','Promptya｜AI画像パック・オリジナル画像生成、22.90ユーロから'],
+'Créez de 1 à 100 images IA avec Promptya : 106 collections, photos de référence et modèles FLUX. Packs personnalisés à 22,90 €, livraison ZIP.':['Twórz od 1 do 100 spersonalizowanych obrazów AI z Promptya. Wybieraj spośród 106 kolekcji, dodaj zdjęcie referencyjne i korzystaj z modeli FLUX. Pakiet za 22,90 €, pobieranie w ZIP.','Promptyaで、あなただけのAI画像を1〜100枚生成。106のコレクションから選び、対応する参考写真とFLUXモデルで自分らしい画像に。1パック22.90ユーロ、ZIPでダウンロード。'],
 'Promptya':['Promptya','Promptya'],'FLUX 3 Image':['FLUX 3 Image','FLUX 3 Image'],'Viral Trend':['Viral Trend','Viral Trend'],'Viral':['Viral','Viral'],'Trend':['Trend','Trend'],'Adult Prompt':['Portrety glamour','グラマーポートレート'],'Covers':['Okładki muzyczne','ジャケット画像'],'JSON':['JSON','JSON'],
 'Promptya accueil':['Strona główna Promptya','Promptya ホーム'],
 'Packs':['Pakiety','画像パック'],'Mascottes':['Postacie','キャラクター'],'Journal':['Poradniki i inspiracje','読みもの'],'Tarifs':['Cennik','料金'],'Panier':['Koszyk','カート'],'Mon compte':['Moje konto','マイアカウント'],
