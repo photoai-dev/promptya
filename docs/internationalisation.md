@@ -1,8 +1,10 @@
 # Internationalisation et contenus éditoriaux
 
-Le français reste à la racine. Versions actives : `/en/`, `/es/`, `/it/`, `/pt/`, `/de/`. Le néerlandais est réservé mais non activé.
+Le français reste à la racine. Versions actives : `/en/`, `/es/`, `/it/`, `/pt/`, `/de/`, `/nl/`, `/br/`, `/cz/`. La variante brésilienne utilise `pt-BR`, la version portugaise `pt-PT` et le tchèque `cs-CZ` dans les balises de langue et de référencement. Les dossiers `/br/` et `/cz/` correspondent aux noms demandés.
 
 Les textes publics des 175 pages de chaque langue sont enregistrés dans `public.editorial_pages` : textes éditoriaux, titres SEO, descriptions. Les blocs sont identifiés par le hash de leur texte source. Les prompts de génération restent dans leur table privée, sans traduction ni export.
+
+Les messages dynamiques et leurs formes plurielles sont définis dans `content/locales/runtime-labels.json`.
 
 Les fichiers `content/locales/<lang>.json` et `<lang>-overrides.json` contiennent les libellés d’interface, messages, attributs et les traductions initiales de secours. Les valeurs éditoriales provenant de la base prennent priorité sur ces traductions initiales. `editorial-snapshot.json` est un cache public de construction pour conserver un site disponible si la base ne répond pas. Il ne contient aucun prompt interne.
 

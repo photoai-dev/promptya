@@ -1,0 +1,179 @@
+{
+  "en": {
+    "one": "collection found",
+    "many": "collections found",
+    "preview": "Pack preview:",
+    "universe": "Universe:",
+    "added": "Pack added.",
+    "total": "in total",
+    "per": "per pack",
+    "for": "for this pack",
+    "generated": "Images generated:",
+    "progress": "Generation in progress",
+    "orders": "No orders",
+    "results": "No results",
+    "step": "Step",
+    "of": "of",
+    "placement": "Subject on the right third",
+    "palette": [
+      "cream",
+      "blue",
+      "terracotta"
+    ]
+  },
+  "es": {
+    "one": "colección encontrada",
+    "many": "colecciones encontradas",
+    "preview": "Vista del pack:",
+    "universe": "Universo:",
+    "added": "Pack añadido.",
+    "total": "en total",
+    "per": "por pack",
+    "for": "para este pack",
+    "generated": "Imágenes generadas:",
+    "progress": "Generación en curso",
+    "orders": "No hay pedidos",
+    "results": "No hay resultados",
+    "step": "Paso",
+    "of": "de",
+    "placement": "Sujeto en el tercio derecho",
+    "palette": [
+      "crema",
+      "azul",
+      "terracota"
+    ]
+  },
+  "it": {
+    "one": "collezione trovata",
+    "many": "collezioni trovate",
+    "preview": "Anteprima del pack:",
+    "universe": "Universo:",
+    "added": "Pack aggiunto.",
+    "total": "in totale",
+    "per": "per pack",
+    "for": "per questo pack",
+    "generated": "Immagini generate:",
+    "progress": "Generazione in corso",
+    "orders": "Nessun ordine",
+    "results": "Nessun risultato",
+    "step": "Passaggio",
+    "of": "di",
+    "placement": "Soggetto nel terzo destro",
+    "palette": [
+      "crema",
+      "blu",
+      "terracotta"
+    ]
+  },
+  "pt": {
+    "one": "coleção encontrada",
+    "many": "coleções encontradas",
+    "preview": "Pré-visualização do pack:",
+    "universe": "Universo:",
+    "added": "Pack adicionado.",
+    "total": "no total",
+    "per": "por pack",
+    "for": "para este pack",
+    "generated": "Imagens geradas:",
+    "progress": "Geração em curso",
+    "orders": "Sem encomendas",
+    "results": "Sem resultados",
+    "step": "Passo",
+    "of": "de",
+    "placement": "Pessoa no terço direito",
+    "palette": [
+      "creme",
+      "azul",
+      "terracota"
+    ]
+  },
+  "de": {
+    "one": "Kollektion gefunden",
+    "many": "Kollektionen gefunden",
+    "preview": "Paketvorschau:",
+    "universe": "Bildwelt:",
+    "added": "Paket hinzugefügt.",
+    "total": "insgesamt",
+    "per": "pro Paket",
+    "for": "für dieses Paket",
+    "generated": "Generierte Bilder:",
+    "progress": "Generierung läuft",
+    "orders": "Keine Bestellungen",
+    "results": "Keine Ergebnisse",
+    "step": "Schritt",
+    "of": "von",
+    "placement": "Person im rechten Bilddrittel",
+    "palette": [
+      "Creme",
+      "Blau",
+      "Terrakotta"
+    ]
+  },
+  "nl": {
+    "one": "collectie gevonden",
+    "many": "collecties gevonden",
+    "preview": "Pakketvoorbeeld:",
+    "universe": "Beeldwereld:",
+    "added": "Pakket toegevoegd.",
+    "total": "in totaal",
+    "per": "per pakket",
+    "for": "voor dit pakket",
+    "generated": "Gegenereerde afbeeldingen:",
+    "progress": "Bezig met genereren",
+    "orders": "Geen bestellingen",
+    "results": "Geen resultaten",
+    "step": "Stap",
+    "of": "van",
+    "placement": "Onderwerp in het rechter derde",
+    "palette": [
+      "crème",
+      "blauw",
+      "terracotta"
+    ]
+  },
+  "br": {
+    "one": "coleção encontrada",
+    "many": "coleções encontradas",
+    "preview": "Prévia do pacote:",
+    "universe": "Universo:",
+    "added": "Pacote adicionado.",
+    "total": "no total",
+    "per": "por pacote",
+    "for": "para este pacote",
+    "generated": "Imagens geradas:",
+    "progress": "Geração em andamento",
+    "orders": "Nenhum pedido",
+    "results": "Nenhum resultado",
+    "step": "Etapa",
+    "of": "de",
+    "placement": "Pessoa no terço direito",
+    "palette": [
+      "creme",
+      "azul",
+      "terracota"
+    ]
+  },
+  "cz": {
+    "one": "nalezená kolekce",
+    "many": "nalezené kolekce",
+    "countPrefix": "Počet nalezených kolekcí: ",
+    "preview": "Náhled balíčku:",
+    "universe": "Vizuální svět:",
+    "added": "Balíček byl přidán.",
+    "total": "celkem",
+    "per": "za balíček",
+    "for": "za tento balíček",
+    "generated": "Vygenerované obrázky:",
+    "progress": "Probíhá generování",
+    "orders": "Žádné objednávky",
+    "results": "Žádné výsledky",
+    "step": "Krok",
+    "of": "z",
+    "placement": "Postava v pravé třetině",
+    "palette": [
+      "krémová",
+      "modrá",
+      "terakota"
+    ]
+  }
+}

@@ -6,7 +6,10 @@
     "es",
     "it",
     "pt",
-    "de"
+    "de",
+    "nl",
+    "br",
+    "cz"
   ],
   "languages": {
     "fr": {
@@ -30,9 +33,12 @@
       "prefix": "/es/"
     },
     "pt": {
-      "name": "Português",
+      "name": "Português (Portugal)",
       "flag": "🇵🇹",
-      "prefix": "/pt/"
+      "prefix": "/pt/",
+      "htmlLang": "pt-PT",
+      "intl": "pt-PT",
+      "og": "pt_PT"
     },
     "de": {
       "name": "Deutsch",
@@ -42,7 +48,25 @@
     "nl": {
       "name": "Nederlands",
       "flag": "🇳🇱",
-      "prefix": "/nl/"
+      "prefix": "/nl/",
+      "intl": "nl-NL",
+      "og": "nl_NL"
+    },
+    "br": {
+      "name": "Português (Brasil)",
+      "flag": "🇧🇷",
+      "prefix": "/br/",
+      "htmlLang": "pt-BR",
+      "intl": "pt-BR",
+      "og": "pt_BR"
+    },
+    "cz": {
+      "name": "Čeština",
+      "flag": "🇨🇿",
+      "prefix": "/cz/",
+      "htmlLang": "cs-CZ",
+      "intl": "cs-CZ",
+      "og": "cs_CZ"
     }
   }
 }
