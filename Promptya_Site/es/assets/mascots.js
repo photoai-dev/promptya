@@ -1,6 +1,6 @@
 let inventory;try{const r=await fetch('/api/mascots');if(r.ok)inventory=await r.json();}catch{}
 const statuses=new Map((inventory?.items||[]).map(m=>[m.slug,m.status]));
-document.querySelectorAll('[data-mascot-card]').forEach(card=>{const status=statuses.get(card.dataset.mascotCard);if(status==='sold')card.hidden=true;if(status==='reserved'){card.classList.add('is-reserved');const badge=card.querySelector('.unique-badge');if(badge)badge.textContent="RESERVA EN CURSO";}});
+document.querySelectorAll('[data-mascot-card]').forEach(card=>{const status=statuses.get(card.dataset.mascotCard);if(status==='sold'){card.hidden=true;card.dataset.unavailable='true';}if(status==='reserved'){card.classList.add('is-reserved');const badge=card.querySelector('.unique-badge');if(badge)badge.textContent="RESERVA EN CURSO";}});
 const market=document.getElementById('mascot-market-status');if(market)market.textContent=inventory?.salesEnabled?"Cada adquisición está protegida por una reserva de copia.":"Elige tu personaje. Una mascota está reservada a un único comprador.";
 const profile=document.querySelector('[data-mascot-profile]');
 if(profile){const slug=profile.dataset.mascotProfile,status=statuses.get(slug),button=document.getElementById('mascot-buy-button'),availability=document.getElementById('mascot-availability');

@@ -1,0 +1,8 @@
+const cards=[...document.querySelectorAll('.ms-character')];let active='all',query='';
+const normalize=s=>s.normalize('NFD').replace(/\p{M}/gu,'').toLowerCase();
+function filter(){let count=0;for(const card of cards){const unavailable=card.dataset.unavailable==='true';const matches=(active==='all'||card.dataset.categories.split(' ').includes(active))&&normalize(card.textContent).includes(normalize(query));card.hidden=unavailable||!matches;if(!card.hidden)count++;}document.querySelector('.ms-search-empty').hidden=count>0;for(const a of document.querySelectorAll('[data-character-filter]'))a.setAttribute('aria-current',String(a.dataset.characterFilter===active));}
+document.querySelectorAll('[data-character-filter]').forEach(a=>a.addEventListener('click',()=>{active=a.dataset.characterFilter;filter();}));
+document.querySelectorAll('[data-show-all]').forEach(a=>a.addEventListener('click',()=>{active='all';query='';const input=document.querySelector('.mascot-store-header input');if(input)input.value='';filter();}));
+document.querySelector('.mascot-store-header .nav-search')?.addEventListener('submit',e=>{e.preventDefault();query=new FormData(e.currentTarget).get('q')||'';active='all';filter();document.getElementById('mascotte-catalogue').scrollIntoView({behavior:'smooth'});});
+document.querySelectorAll('[data-character-slide]').forEach(button=>button.addEventListener('click',()=>{const row=document.querySelector('.ms-featured-grid');row.scrollBy({left:row.clientWidth*.8*Number(button.dataset.characterSlide),behavior:'smooth'});}));
+const params=new URLSearchParams(location.search);if(params.has('q')){query=params.get('q');filter();}

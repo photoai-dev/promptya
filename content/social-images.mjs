@@ -2,7 +2,7 @@ import {articles} from './blog.mjs';
 import {mascots} from './mascots.mjs';
 const sectionImages={
  '/':'habillage/couture-lavande.webp','/packs/':'habillage/couture-lavande.webp',
- '/viral-trend/':'video/viral-trend-header-poster.webp',
+ '/viral-trend/':'mascot-store/hero.webp',
  '/comment-ca-marche/':'habillage/formats-danseur.webp',
  '/guides/':'habillage/gentleman.webp','/blog/':'habillage/gentleman.webp',
  '/covers/':'gallery/cover-album-chihuahua.webp',
