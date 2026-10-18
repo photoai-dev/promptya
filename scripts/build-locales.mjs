@@ -1,3 +1,4 @@
+import {catalogCopy} from '../content/locales/catalog-copy.mjs';
 import {mascotStoreCopy} from '../content/locales/mascot-store-copy.mjs';
 import {readFile,readdir,mkdir,cp} from 'node:fs/promises';
 import {writeFile} from '../lib/fs-safe.mjs';
@@ -29,7 +30,7 @@ function applyEditorial(doc,record){if(!record)return;function walk(n,main=false
 for(const locale of locales){
 const dictionary=JSON.parse(await readFile('content/locales/'+locale+'.json','utf8'));try{Object.assign(dictionary,JSON.parse(await readFile('content/locales/'+locale+'-overrides.json','utf8')));}catch{}
 if(['pl','ja'].includes(locale))Object.assign(dictionary,reviewedAdditionalCopy(locale,dictionary));
-Object.assign(dictionary,mascotStoreCopy(locale));for(const m of mascots)dictionary['Découvrir '+m.name]=(dictionary['Découvrir']||({en:'Discover',es:'Descubrir',it:'Scopri',pt:'Descobrir',br:'Conhecer',de:'Entdecken',nl:'Ontdek',cz:'Objevit',pl:'Odkryj',ja:'見る'}[locale]))+' '+m.name;
+Object.assign(dictionary,mascotStoreCopy(locale),catalogCopy(locale));for(const m of mascots)dictionary['Découvrir '+m.name]=(dictionary['Découvrir']||({en:'Discover',es:'Descubrir',it:'Scopri',pt:'Descobrir',br:'Conhecer',de:'Entdecken',nl:'Ontdek',cz:'Objevit',pl:'Odkryj',ja:'見る'}[locale]))+' '+m.name;
 const tr=value=>{const key=value.trim();return dictionary[key]!==undefined?value.replace(key,dictionary[key]):value;},routes=routeMaps[locale];
 const currency=value=>{const key=value.trim();if(!/^\d+(?:[,.]\d{2})?\s*€$/.test(key))return value;return value.replace(key,new Intl.NumberFormat(config.languages[locale].intl||locale,{style:'currency',currency:'EUR'}).format(Number(key.replace('€','').trim().replace(',','.'))));};
 function url(value){if(!value)return value;const absolute=value.startsWith(origin),v=absolute?value.slice(origin.length):value;if(!v.startsWith('/')||v.startsWith('//')||/^\/(api|assets)\//.test(v))return value;const [,raw,tail]=v.match(/^([^?#]*)(.*)$/);const p=raw.endsWith('/')?raw:raw+'/';return routes[p]?(absolute?origin:'')+routes[p]+tail:value;}

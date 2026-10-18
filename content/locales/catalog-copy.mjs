@@ -1,0 +1,1 @@
+export function catalogCopy(locale){const label={en:'FEATURED',es:'DESTACADO',it:'IN EVIDENZA',pt:'EM DESTAQUE',br:'EM DESTAQUE',de:'IM FOKUS',nl:'UITGELICHT',cz:'V CENTRU POZORNOSTI',pl:'WYRÓŻNIONE',ja:'注目のコレクション'}[locale];return label?{'À LA UNE':label,'À la une':label}:{};}

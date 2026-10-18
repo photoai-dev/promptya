@@ -1,3 +1,4 @@
+import {editorial as collectionLabels} from '../content/collections.mjs';
 import {mascotStoreHeader} from '../content/mascot-storefront.mjs';
 import {writeFile} from '../lib/fs-safe.mjs';
 import {readFile,readdir,mkdir,cp,rm} from 'node:fs/promises';
@@ -30,7 +31,7 @@ if(catalog.some(p=>'prompts' in p))throw Error('Le catalogue public ne doit cont
 const escape=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 for(const category of ['voyage','mode','sport','creation','gourmandise']){
   const file=new URL(`categories/${category}/index.html`,root);let html=await readFile(file,'utf8');
-  const cards=catalog.filter(p=>p.category===category).map(p=>`<a class="tile" href="/packs/${p.slug}/"><img loading="lazy" src="/assets/${p.image}" alt="Exemple de la collection ${escape(p.name)}"><div class="tilemain"><h2 style="font-size:20px">${escape(p.name)}</h2><p>Pack personnalisable · jusqu’à 100 images</p><strong>22,90 € →</strong></div></a>`).join('');
+  const cards=catalog.filter(p=>p.category===category).map(p=>`<a class="tile" data-pack-slug="${p.slug}" href="/packs/${p.slug}/"><img loading="lazy" src="/assets/${p.image}" alt="${escape(collectionLabels[p.slug]?.name||p.name)}"><div class="tilemain"><h2 style="font-size:20px">${escape(collectionLabels[p.slug]?.name||p.name)}</h2><p>Pack personnalisable · jusqu’à 100 images</p><strong>22,90 € →</strong></div></a>`).join('');
   html=html.replace(new RegExp(`<div class="cards section" data-category="${category}">[\\s\\S]*?<\\/div><!-- catalog-end -->`),`<div class="cards section" data-category="${category}">${cards}</div><!-- catalog-end -->`);
   if(!html.includes('<!-- catalog-end -->'))html=html.replace(`<div class="cards section" data-category="${category}"></div>`,`<div class="cards section" data-category="${category}">${cards}</div><!-- catalog-end -->`);
   await writeFile(file,html);
