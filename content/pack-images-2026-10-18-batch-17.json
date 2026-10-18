@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "serie-tele",
+    "source": "Image ChatGPT 18 oct. 2026, 15_37_12-10.png",
+    "image": "thumbnails/serie-tele.webp",
+    "width": 1280,
+    "height": 720,
+    "bytes": 142086
+  },
+  {
+    "slug": "tomorowland",
+    "source": "Image ChatGPT 18 oct. 2026, 15_37_03-4.png",
+    "image": "thumbnails/tomorowland.webp",
+    "width": 1280,
+    "height": 720,
+    "bytes": 149704
+  },
+  {
+    "slug": "marrakech",
+    "source": "Image ChatGPT 18 oct. 2026, 15_37_06-6.png",
+    "image": "thumbnails/marrakech.webp",
+    "width": 1280,
+    "height": 720,
+    "bytes": 197210
+  },
+  {
+    "slug": "plat-3d",
+    "source": "Image ChatGPT 18 oct. 2026, 15_36_58-1.png",
+    "image": "thumbnails/plat-3d.webp",
+    "width": 1280,
+    "height": 720,
+    "bytes": 155082
+  }
+]
