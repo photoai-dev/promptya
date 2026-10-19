@@ -23,10 +23,10 @@ Dans les variables serveur Vercel :
 - `REPLICATE_API_TOKEN` : clé API Replicate.
 - `STRIPE_SECRET_KEY` et `STRIPE_WEBHOOK_SECRET` : clés Stripe.
 - `CRON_SECRET` : secret du traitement des tâches.
-- `APP_URL` : `https://promptya-lylx.vercel.app`.
+- `APP_URL` : `https://www.promptya.app`.
 - `ADMIN_LOGIN`, `ADMIN_PASSWORD_HASH`, `ADMIN_SESSION_SECRET` : accès administrateur existant à transférer côté serveur.
 
-Dans Supabase Auth, confirmer le Site URL et les redirections autorisées : `https://promptya-lylx.vercel.app/compte/` et `https://promptya-lylx.vercel.app/compte/?recovery=1`. Les URL locales de développement peuvent être ajoutées séparément. Configurer un SMTP de production avant l’ouverture commerciale et tester la confirmation et la récupération sur une adresse autorisée.
+Dans Supabase Auth, confirmer le Site URL et les redirections autorisées : `https://www.promptya.app/compte/` et `https://www.promptya.app/compte/?recovery=1`. Les URL locales de développement peuvent être ajoutées séparément. Configurer un SMTP de production avant l’ouverture commerciale et tester la confirmation et la récupération sur une adresse autorisée.
 
 Les inscriptions, connexions et réinitialisations passent par Supabase Auth. Les jetons d’accès et de renouvellement sont placés dans des cookies HttpOnly ; ils ne sont pas retournés dans les réponses de connexion. Les mots de passe des clients sont traités par Supabase Auth et ne sont jamais stockés dans les tables de l’application.
 
@@ -39,3 +39,5 @@ Modèle exact : `black-forest-labs/flux-3-image`. Adaptateur de génération et 
 Plafond utilisateur : **0,02 USD par photo**. Le tarif Replicate consulté annonce **0,0205 USD en 768sq** et **0,024 USD en 1K**. Toutes les résolutions sont donc bloquées avant paiement et avant soumission. Aucun test payant n’a été lancé et aucun autre modèle n’a été choisi à la place. [Source Replicate](https://replicate.com/black-forest-labs/flux-3-image).
 
 Une future campagne d’entraînement LoRA reste conditionnelle à des tests de ressemblance. FLUX 3 Image n’expose pas d’entrée LoRA dans le schéma consulté : ne pas lui transmettre `lora_weights`. Choisir et chiffrer un pipeline d’entraînement compatible séparément, avec consentement et fichiers privés, avant toute dépense.
+
+Les écrans client et de gestion sont décrits dans [administration.md](administration.md).

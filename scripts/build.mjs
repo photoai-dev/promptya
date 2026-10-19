@@ -2,6 +2,8 @@ import {editorial as collectionLabels} from '../content/collections.mjs';
 import {mascotStoreHeader} from '../content/mascot-storefront.mjs';
 import {writeFile} from '../lib/fs-safe.mjs';
 import {readFile,readdir,mkdir,cp,rm} from 'node:fs/promises';
+// The local API origin must never become a public canonical or sitemap URL.
+process.env.SITE_URL ||= 'https://www.promptya.app';
 await import('./sync-examples.mjs');
 await import('./content-pages.mjs');
 await import('./catalog-pages.mjs');
@@ -16,6 +18,7 @@ await import('./fairy-pack-page.mjs');
 await import('./how-page.mjs');
 await import('./guides-page.mjs');
 await import('./editorial-admin-page.mjs');
+await import('./management-page.mjs');
 await import('./legal-page.mjs');
 const {siteHeader,siteFooter}=await import('../content/layout.mjs');
 const {sharingMetadata,iconMetadata,socialAsset}=await import('../content/social-images.mjs');
